@@ -1,0 +1,13 @@
+#Qtitle, #Qcontent{
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
+}
+
+#Qtitle{
+	width:200px;
+}
+
+#Qcontent{
+	width:150px;
+}
