@@ -77,11 +77,10 @@ public class SearchDAO {
 		List<SearchVO> todayQuestions = new ArrayList<SearchVO>();
 		List<SearchVO> myInterestQuestions = new ArrayList<SearchVO>();
 		String interest = vo.getCategory();
-		SearchVO searchVO;
 		try {
 			con = dataFactory.getConnection();
 			//moreViewQuestion
-			String query = "SELECT * FROM question"; //쿼리 수정 필요
+			String query = "SELECT * FROM question WHERE userId NOT IN(SELECT userId question WHERE userId=\"(삭제된 이용자)\") ORDER BY view DESC LIMIT 3";
 			pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -93,11 +92,11 @@ public class SearchDAO {
 				int view = rs.getInt("view");
 				Date created = rs.getDate("created");
 				
-				searchVO = new SearchVO(id, userId, category, title, content, view, created);
-				moreViewQuestions.add(searchVO);
+				vo = new SearchVO(id, userId, category, title, content, view, created);
+				moreViewQuestions.add(vo);
 			}
 			//lessViewQuestion
-			query = "SELECT * FROM question"; //쿼리 수정 필요
+			query = "SELECT * FROM question WHERE userId NOT IN(SELECT userId question WHERE userId=\"(삭제된 이용자)\") ORDER BY view ASC LIMIT 3";
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -109,11 +108,11 @@ public class SearchDAO {
 				int view = rs.getInt("view");
 				Date created = rs.getDate("created");
 				
-				searchVO = new SearchVO(id, userId, category, title, content, view, created);
-				lessViewQuestions.add(searchVO);
+				vo = new SearchVO(id, userId, category, title, content, view, created);
+				lessViewQuestions.add(vo);
 			}
 			//todayQuestion
-			query = " select * from question where created > CURRENT_DATE( )";
+			query = "SELECT * FROM question WHERE created > CURRENT_DATE() AND userId NOT IN(SELECT userId question WHERE userId=\"(삭제된 이용자)\") ORDER BY RAND() LIMIT 3";
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -125,11 +124,11 @@ public class SearchDAO {
 				int view = rs.getInt("view");
 				Date created = rs.getDate("created");
 				
-				searchVO = new SearchVO(id, userId, category, title, content, view, created);
-				todayQuestions.add(searchVO);
+				vo = new SearchVO(id, userId, category, title, content, view, created);
+				todayQuestions.add(vo);
 			}
 			//myInterestQuestion
-			query = "SELECT * FROM question WHERE category = ?";
+			query = "SELECT * FROM question WHERE category = ? AND userId NOT IN(SELECT userId question WHERE userId=\"(삭제된 이용자)\") ORDER BY RAND() LIMIT 3";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, interest);
 			rs = pstmt.executeQuery();
@@ -142,8 +141,8 @@ public class SearchDAO {
 				int view = rs.getInt("view");
 				Date created = rs.getDate("created");
 				
-				searchVO = new SearchVO(id, userId, category, title, content, view, created);
-				myInterestQuestions.add(searchVO);
+				vo = new SearchVO(id, userId, category, title, content, view, created);
+				myInterestQuestions.add(vo);
 			}
 
 			AllMainQuestions.add((ArrayList<SearchVO>) moreViewQuestions);
@@ -158,5 +157,84 @@ public class SearchDAO {
 			e.printStackTrace();
 		}
 		return AllMainQuestions;
+	}
+	
+	public List<ArrayList<SearchVO>> mypageSearch(SearchVO vo) {
+		List<ArrayList<SearchVO>> AllMypageQuestions =  new ArrayList<ArrayList<SearchVO>>();
+		List<SearchVO> myQuestions = new ArrayList<SearchVO>();
+		List<SearchVO> answeringQuestions = new ArrayList<SearchVO>();
+		List<SearchVO> answerings = new ArrayList<SearchVO>();
+		List<SearchVO> selectedQuestions = new ArrayList<SearchVO>();
+		String searchUserId = vo.getUserId();
+		try {
+			con = dataFactory.getConnection();
+			String query = "SELECT * FROM question WHERE userId = ? LIMIT 5";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, searchUserId);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String userId = rs.getString("userId");
+				String category = rs.getString("category");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				int view = rs.getInt("view");
+				Date created = rs.getDate("created");
+				
+				vo = new SearchVO(id, userId, category, title, content, view, created);
+				myQuestions.add(vo);
+			}
+			query = "SELECT id, category, title, created FROM question WHERE id IN (SELECT qId FROM answer WHERE userId = ?) LIMIT 5";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, searchUserId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String category = rs.getString("category");
+				String title = rs.getString("title");
+				
+				vo = new SearchVO(id, category, title);
+				answeringQuestions.add(vo);
+			}
+			query = "SELECT title, created FROM answer WHERE userId=? LIMIT 5";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, searchUserId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String title = rs.getString("title");
+				Date created = rs.getDate("created");
+				
+				vo = new SearchVO(title, created);
+				answerings.add(vo);
+			}
+			query = "SELECT * FROM question WHERE select_userId=? LIMIT 5";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, searchUserId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String userId = rs.getString("userId");
+				String category = rs.getString("category");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				int view = rs.getInt("view");
+				Date created = rs.getDate("created");
+			
+				vo = new SearchVO(id, userId, category, title, content, view, created);
+				selectedQuestions.add(vo);
+			}
+			
+			AllMypageQuestions.add((ArrayList<SearchVO>)myQuestions);
+			AllMypageQuestions.add((ArrayList<SearchVO>)answeringQuestions);
+			AllMypageQuestions.add((ArrayList<SearchVO>)answerings);
+			AllMypageQuestions.add((ArrayList<SearchVO>)selectedQuestions);
+			
+			rs.close();
+			pstmt.close();
+			con.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return AllMypageQuestions;
 	}
 }

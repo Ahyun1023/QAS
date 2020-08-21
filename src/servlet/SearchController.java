@@ -125,8 +125,7 @@ public class SearchController extends HttpServlet {
 		System.out.println("today: " +  todayQuestions);
 		System.out.println("interest: " + myInterestQuestions);*/
 		//////////////////////////////////////////
-		
-		System.out.println(moreViewQuestions);
+
 		request.setAttribute("moreViewQuestions", moreViewQuestions);
 		request.setAttribute("lessViewQuestions", lessViewQuestions);
 		request.setAttribute("todayQuestions", todayQuestions);

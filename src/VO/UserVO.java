@@ -4,9 +4,8 @@ public class UserVO {
 	private String id;
 	private String pw;
 	private String name;
-	private String address;
 	private String email;
-	private String phone;
+	private String emailForm;
 	private int grade;
 	private String interests;
 	
@@ -28,23 +27,11 @@ public class UserVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
 	}
 	public int getGrade() {
 		return grade;
@@ -57,5 +44,11 @@ public class UserVO {
 	}
 	public void setInterests(String interests) {
 		this.interests = interests;
+	}
+	public String getEmailForm() {
+		return emailForm;
+	}
+	public void setEmailForm(String emailForm) {
+		this.emailForm = emailForm;
 	}
 }

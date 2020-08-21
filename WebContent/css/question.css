@@ -1,0 +1,23 @@
+#selectedMark{
+	color:green
+}
+
+#selected{
+	font-weight: bold;
+	font-size:larger;
+	color:green;
+}
+
+#Aupper{
+	font-weight: bold;
+	font-size:larger;
+}
+
+#Auserid{
+	font-weight: bold;
+}
+
+#deleted_warning{
+	color:gray;
+	font-size:small;
+}

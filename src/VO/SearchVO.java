@@ -14,6 +14,8 @@ public class SearchVO {
 	private String searchWord;
 	private String searchCategory;
 	
+	private int count;
+	
 	public SearchVO(int id, String userId, String category, String title, String content, int view, Date created) {
 		super();
 		this.id = id;
@@ -23,6 +25,24 @@ public class SearchVO {
 		this.content = content;
 		this.view = view;
 		this.created = created;
+	}
+	
+	public SearchVO(int id, String category, String title) {
+		super();
+		this.id = id;
+		this.category = category;
+		this.title = title;
+	}
+	
+	public SearchVO(String title, Date created) {
+		super();
+		this.title = title;
+		this.created = created;
+	}
+	
+	public SearchVO(int count) {
+		super();
+		this.count = count;
 	}
 	
 	public SearchVO(String category) {
@@ -94,6 +114,14 @@ public class SearchVO {
 
 	public void setSearchCategory(String searchCategory) {
 		this.searchCategory = searchCategory;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 
 }

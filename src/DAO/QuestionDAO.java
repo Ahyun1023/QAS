@@ -44,7 +44,9 @@ public class QuestionDAO {
 			pstmt.setString(3, title);
 			pstmt.setString(4, content);
 			pstmt.executeUpdate();
+			
 			pstmt.close();
+			con.close();
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -63,7 +65,9 @@ public class QuestionDAO {
 			pstmt.setString(2, content);
 			pstmt.setInt(3, id);
 			pstmt.executeUpdate();
+			
 			pstmt.close();
+			con.close();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -92,8 +96,10 @@ public class QuestionDAO {
 				int view = rs.getInt("view");
 				Date created = rs.getDate("created");
 				String content = rs.getNString("content");
+				int selection = rs.getInt("selection");
+				String select_userId = rs.getString("select_userId");
 				
-				QuestionVO questionVO = new QuestionVO(id, userId, category, title, view, created, content);
+				QuestionVO questionVO = new QuestionVO(id, userId, category, title, view, created, content, selection, select_userId);
 				question.add(questionVO);
 			}
 			rs.close();
@@ -116,6 +122,25 @@ public class QuestionDAO {
 			pstmt.executeUpdate();
 			pstmt.close();
 		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void selectAnswer(QuestionVO vo) {
+		try {
+			con = dataFactory.getConnection();
+			int id = vo.getId();
+			String select_userId = vo.getSelect_userId();
+			
+			String query = "UPDATE question SET selection = 1, select_userId=? WHERE id=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, select_userId);
+			pstmt.setInt(2, id);
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			con.close();
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}

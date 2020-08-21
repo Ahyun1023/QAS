@@ -31,7 +31,6 @@ public class QuestionController extends HttpServlet {
      */
     public QuestionController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -70,6 +69,8 @@ public class QuestionController extends HttpServlet {
 			ReadQuestion(request, response);
 		} else if(action.equals("/delete.do")) {
 			DeleteQuestion(request, response);
+		} else if(action.equals("/select.do")) {
+			SelectAnswer(request, response);
 		}
 		if(nextPage != null) {
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
@@ -77,12 +78,20 @@ public class QuestionController extends HttpServlet {
 		}
 	}
 	
+	private void SelectAnswer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String select_userId = request.getParameter("selectAuserId");
+		int id = Integer.parseInt(request.getParameter("qId"));
+		QuestionVO vo = new QuestionVO(id, select_userId);
+		vo.setId(id);
+		vo.setSelect_userId(select_userId);
+		questionDAO.selectAnswer(vo);
+	}
+
 	private void DeleteQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("deleteQid"));
 		QuestionVO vo = new QuestionVO(id);
 		vo.setId(id);
 		questionDAO.deleteQuestion(vo);
-		
 	}
 
 	private void ReadQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

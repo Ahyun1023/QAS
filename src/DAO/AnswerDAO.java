@@ -30,6 +30,7 @@ public class AnswerDAO {
 	
 	public List<AnswerVO> readAnswer(AnswerVO vo){
 		List<AnswerVO> answer = new ArrayList<AnswerVO>();
+		
 		try {
 			con = dataFactory.getConnection();
 			int qid = vo.getId();
@@ -61,18 +62,22 @@ public class AnswerDAO {
 		try {
 			con = dataFactory.getConnection();
 			int qId = vo.getqId();
+			String category = vo.getCategory();
 			String userId = vo.getUserId();
 			String title = vo.getTitle();
 			String content = vo.getContent();
 			
-			String query = "INSERT INTO answer (qId, userId, title, content, created)";
-			query += " VALUES (?, ?, ?, ?, NOW())";
+			String query = "INSERT INTO answer (qId, category, userId, title, content, created)";
+			query += " VALUES (?, ?, ?, ?, ?, NOW())";
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, qId);
-			pstmt.setString(2, userId);
-			pstmt.setString(3, title);
-			pstmt.setString(4, content);
+			pstmt.setString(2, category);
+			pstmt.setString(3, userId);
+			pstmt.setString(4, title);
+			pstmt.setString(5, content);
 			pstmt.executeUpdate();
+			
+			con.close();
 			pstmt.close();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -88,6 +93,8 @@ public class AnswerDAO {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, aId);
 			pstmt.executeUpdate();
+			
+			con.close();
 			pstmt.close();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -107,6 +114,8 @@ public class AnswerDAO {
 			pstmt.setString(2, content);
 			pstmt.setInt(3, id);
 			pstmt.executeUpdate();
+			
+			con.close();
 			pstmt.close();
 		} catch(Exception e) {
 			e.printStackTrace();

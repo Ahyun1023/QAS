@@ -6,6 +6,7 @@ public class AnswerVO {
 	private int id;
 	private String userId;
 	private int qId;
+	private String category;
 	private String title;
 	private String content;
 	private Date created;
@@ -24,9 +25,10 @@ public class AnswerVO {
 		this.id = id;
 	}
 
-	public AnswerVO(int qId, String userId, String title, String content) {
+	public AnswerVO(int qId, String category, String userId, String title, String content) {
 		super();
 		this.qId = qId;
+		this.category = category;
 		this.userId = userId;
 		this.title = title;
 		this.content = content;
@@ -74,5 +76,13 @@ public class AnswerVO {
 	}
 	public void setCreated(Date created) {
 		this.created = created;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 }

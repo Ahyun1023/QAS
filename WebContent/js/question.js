@@ -8,6 +8,7 @@ window.onload = ()=>{
 function writeAns(){
 	let isLogin = $('#isLogin').val();
 	let qId = $('#answerQid').val();
+	let category = $('#questionCategory').val();s
 	let title = $('#answerTitle').val();
 	let content = $('#answerContent').val();
 	let isUserid = $('#isUserid').val();
@@ -18,14 +19,15 @@ function writeAns(){
 		} else{
 			return;
 		}
+		
+	} else if(isUserid != undefined){
+		alert('이미 이 질문에 답변을 하셨습니다.');
+		return;
 	} else if(title == '' || title == null){
 		alert('답변의 제목을 작성해주세요.');
 		return;
 	} else if(content == '' || content == null){
 		alert('답변의 내용을 작성해주세요.');
-		return;
-	} else if(isUserid != undefined){
-		alert('이미 이 질문에 답변을 하셨습니다.');
 		return;
 	}
 	$(document).ready(()=>{
@@ -34,6 +36,7 @@ function writeAns(){
 		type: "POST",
 		data: {
 			answerQid: qId,
+			answerCategory: category,
 			answerTitle: title,
 			answerContent: content
 		},
@@ -162,5 +165,19 @@ function updateQuestion(){
 }
 
 function selectionAnswer(Aid){
-	
+	let qId = $('#questionId').val();
+	$(document).ready(()=>{
+		$.ajax({
+			url: "/test/question/select.do",
+			type: "post",
+			data: {
+				qId: qId,
+				selectAuserId: Aid
+			},
+			success: ()=>{
+				alert('해당 답변을 성공적으로 채택했습니다.');
+				location.reload();
+			}
+		})
+	})
 }

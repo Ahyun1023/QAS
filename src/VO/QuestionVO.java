@@ -10,8 +10,10 @@ public class QuestionVO {
 	private String content;
 	private int view;
 	private Date created;
+	private int selection;
+	private String select_userId;
 	
-	public QuestionVO(int id, String userId, String category, String title, int view, Date created, String content) {
+	public QuestionVO(int id, String userId, String category, String title, int view, Date created, String content, int selection, String select_userId) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -20,6 +22,14 @@ public class QuestionVO {
 		this.view = view;
 		this.created = created;
 		this.content = content;
+		this.selection = selection;
+		this.select_userId = select_userId;
+	}
+	
+	public QuestionVO(int id, String select_userId) {
+		super();
+		this.id = id;
+		this.select_userId = select_userId;
 	}
 	
 	public QuestionVO(int id) {
@@ -83,5 +93,21 @@ public class QuestionVO {
 	}
 	public void setCreated(Date created) {
 		this.created = created;
+	}
+
+	public String getSelect_userId() {
+		return select_userId;
+	}
+
+	public void setSelect_userId(String select_userId) {
+		this.select_userId = select_userId;
+	}
+
+	public int getSelection() {
+		return selection;
+	}
+
+	public void setSelection(int selection) {
+		this.selection = selection;
 	}
 }

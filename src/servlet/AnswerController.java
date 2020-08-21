@@ -83,12 +83,14 @@ public class AnswerController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		int qId = Integer.parseInt(request.getParameter("answerQid"));
+		String category = request.getParameter("answerCategory");
 		String userId = (String)session.getAttribute("sessionId");
 		String title = request.getParameter("answerTitle");
 		String content = request.getParameter("answerContent");
 		
-		AnswerVO vo = new AnswerVO(qId, userId, title, content);
+		AnswerVO vo = new AnswerVO(qId, category, userId, title, content);
 		vo.setqId(qId);
+		vo.setCategory(category);
 		vo.setUserId(userId);
 		vo.setTitle(title);
 		vo.setContent(content);

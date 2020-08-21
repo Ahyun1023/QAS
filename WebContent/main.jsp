@@ -34,7 +34,7 @@
 		<input type="submit" value="검색하기" />
 	</form>
 	<h1>오늘의 질문</h1>
-		<c:choose>
+	<c:choose>
 		<c:when test="${todayQ.size() == 0  }">
 			<p>아직 작성된 질문이 없습니다.</p>
 		</c:when>
@@ -62,7 +62,7 @@
 	</c:choose>
 	
 	<h1>조회수가 적은 질문</h1>
-			<c:choose>
+	<c:choose>
 		<c:when test="${lessViewQ.size() == 0  }">
 			<p>아직 작성된 질문이 없습니다.</p>
 		</c:when>
@@ -76,13 +76,20 @@
 	</c:choose>
 	
 	<h1>내 관심 분야 질문</h1>
-		<c:choose>
+	<c:choose>
 		<c:when test="${isLogin != true }">
 			<p>로그인 이후 이용할 수 있는 서비스입니다.</p>
 			<input type="button" value="로그인" onclick="locLogin()" id="loginButton2" />
 		</c:when>
 		<c:when test="${myInterestQ.size() == 0  }">
-			<p>아직 작성된 질문이 없습니다.</p>
+			<c:choose>
+				<c:when test="${sessionInterests == '' }">
+					<p>아직 관심 분야가 등록되지 않았습니다.</p>
+				</c:when>
+				<c:otherwise>
+					<p>아직 작성된 질문이 없습니다.</p>
+				</c:otherwise>
+			</c:choose>
 		</c:when>
 		<c:otherwise>
 				<c:forEach var="myInterestQ" items="${myInterestQ }">
@@ -92,5 +99,8 @@
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>
+	
+	<h1>분야별 답변인</h1>
+	
 </body>
 </html>

@@ -10,7 +10,7 @@ function saveQ() {
 	} else if(save_category == ''){
 		alert('질문의 카테고리를 입력해주세요.');
 	} else{
-		if(confirm("답변 작성 이후 수정과 삭제를 할 수 없습니다. 질문을 등록하시겠습니까?") == true){
+		if(confirm("답변이 작성된 이후 수정과 삭제를 할 수 없습니다.\n질문을 등록하시겠습니까?") == true){
 			$(document).ready(() => {
 			$.ajax({
 				url: '/test/question/add.do',
@@ -22,10 +22,10 @@ function saveQ() {
 					save_content: save_content
 				},
 				success: () => {
-					alert('질문이 성공적으로 저장되었습니다.');
+					alert('질문이 성공적으로 등록 되었습니다.');
 					window.location.replace( "/test/main");
 				},
-					error: (request, status, error) => {
+					error: (request, error) => {
 						alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 					}
 				})
@@ -34,4 +34,25 @@ function saveQ() {
 			return;
 		}
 	}
+}
+
+function titleCount(){
+	let title = $('#title').val();
+	$('#title_count').text(title.length);
+}
+
+function contentCount(){
+	let content = $('#content').val();
+	$('#content_count').text(content.length);
+}
+
+window.onload = ()=>{
+	loginCheck();
+	$('#title').keyup(()=>{
+		titleCount();
+	})
+	$('#content').keyup(()=>{
+		contentCount();
+	})
+
 }
