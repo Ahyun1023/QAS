@@ -29,7 +29,6 @@ public class userController extends HttpServlet {
      */
     public userController() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
 	/**
@@ -59,7 +58,9 @@ public class userController extends HttpServlet {
 		String nextPage = null;
 		String action = request.getPathInfo();
 		
-		if(action.equals("/login.do")) {
+		if(action.equals("/idCheck.do")) {
+			idCheck(request, response);
+		} else if(action.equals("/login.do")) {
 			Login(request, response);
 		} else if(action.equals("/update.do")) {
 			ChangeInfo(request, response);
@@ -76,6 +77,23 @@ public class userController extends HttpServlet {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	private void idCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String id = request.getParameter("checkId");
+		boolean isTrue = false;
+		UserVO vo = new UserVO();
+		vo.setId(id);
+		isTrue = userDAO.idCheck(vo);
+		
+		request.setAttribute("isTrue", isTrue);
+		
+		JSONObject obj = new JSONObject();
+		obj.put("isTrue", isTrue);
+		response.setContentType("application/x-json; charset=UTF-8");
+		response.getWriter().print(obj);
+		
+	}
+
 	private void Signout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String id = request.getParameter("signout_id");
@@ -86,7 +104,6 @@ public class userController extends HttpServlet {
 		if(id.equals(sessionId) || pw.equals(sessionPw)) {			
 			UserVO vo = new UserVO();
 			vo.setId(id);
-			vo.setPw(pw);
 			userDAO.deleteUser(vo);
 			session.invalidate();
 		}
@@ -96,18 +113,16 @@ public class userController extends HttpServlet {
 		String id = request.getParameter("signup_id");
 		String pw = request.getParameter("signup_pw");
 		String name = request.getParameter("signup_name");
-		String address = request.getParameter("signup_address");
 		String email = request.getParameter("signup_email");
-		String phone = request.getParameter("signup_phone");
+		String emailForm = request.getParameter("signup_EmailForm");
 		String interests = request.getParameter("signup_interests");
 		
 		UserVO vo = new UserVO();
 		vo.setId(id);
 		vo.setPw(pw);
 		vo.setName(name);
-		vo.setAddress(address);
 		vo.setEmail(email);
-		vo.setPhone(phone);
+		vo.setEmailForm(emailForm);
 		vo.setInterests(interests);
 		userDAO.addUser(vo);
 	}
@@ -123,26 +138,23 @@ public class userController extends HttpServlet {
 		String id = (String)session.getAttribute("sessionId");
 		String pw = request.getParameter("Cpw");
 		String name = request.getParameter("Cname");
-		String address = request.getParameter("Caddress");
 		String email = request.getParameter("Cemail");
-		String phone = request.getParameter("Cphone");
+		String emailForm = request.getParameter("CemailForm");
 		String interests = request.getParameter("Cinterests");
 		
 		UserVO vo = new UserVO();
 		vo.setId(id);
 		vo.setPw(pw);
 		vo.setName(name);
-		vo.setAddress(address);
 		vo.setEmail(email);
-		vo.setPhone(phone);
+		vo.setEmailForm(emailForm);
 		vo.setInterests(interests);
 		userDAO.updateUser(vo);
 		
 		session.setAttribute("sessionPw", pw);
 		session.setAttribute("sessionName", name);
-		session.setAttribute("sessionAddress", address);
 		session.setAttribute("sessionEmail", email);
-		session.setAttribute("sessionPhone", phone);
+		session.setAttribute("sessionEmailForm", emailForm);
 		session.setAttribute("sessionInterests", interests);
 	}
 
@@ -162,9 +174,8 @@ public class userController extends HttpServlet {
 			String id = vo.getId();
 			String pw = vo.getPw();
 			String name = vo.getName();
-			String address = vo.getAddress();
-			String email = vo.getAddress();
-			String phone = vo.getPhone();
+			String email = vo.getEmail();
+			String emailForm = vo.getEmailForm();
 			String interests = vo.getInterests();
 			int grade = vo.getGrade();
 			
@@ -173,9 +184,8 @@ public class userController extends HttpServlet {
 			session.setAttribute("sessionId", id);
 			session.setAttribute("sessionPw", pw);
 			session.setAttribute("sessionName", name);
-			session.setAttribute("sessionAddress", address);
 			session.setAttribute("sessionEmail", email);
-			session.setAttribute("sessionPhone", phone);
+			session.setAttribute("sessionEmailForm", emailForm);
 			session.setAttribute("sessionInterests", interests);
 			session.setAttribute("sessionGrade", grade);
 			

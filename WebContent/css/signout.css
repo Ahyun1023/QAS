@@ -1,0 +1,20 @@
+#signout_terms{
+	width: 1000px;
+	height: 300px;
+	padding: 10px;
+	background-color: #DFDFDF;
+}
+
+#signout_terms span{
+	color: gray;
+	font-size: small;
+}
+
+#termsCheckLabel{
+	cursor: pointer;
+	-ms-user-select: none; 
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
