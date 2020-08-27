@@ -1,5 +1,7 @@
 package VO;
 
+import java.sql.Date;
+
 public class UserVO {
 	private String id;
 	private String pw;
@@ -8,6 +10,8 @@ public class UserVO {
 	private String emailForm;
 	private int grade;
 	private String interests;
+	private String introduce;
+	private Date created;
 	
 	public String getId() {
 		return id;
@@ -50,5 +54,17 @@ public class UserVO {
 	}
 	public void setEmailForm(String emailForm) {
 		this.emailForm = emailForm;
+	}
+	public String getIntroduce() {
+		return introduce;
+	}
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
+	public Date getCreated() {
+		return created;
+	}
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 }

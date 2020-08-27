@@ -28,6 +28,49 @@ public class SearchDAO {
 		}
 	}
 	
+	public List<SearchVO> findInfoList(SearchVO vo, String action){
+		List<SearchVO> infoList = new ArrayList<SearchVO>();
+		String SearchuserId = vo.getUserId();
+		String query = "";
+		
+		if(action.equals("/questionList.do")) {
+			query = "SELECT * FROM question WHERE userId = ?";
+		} else if(action.equals("/answerList.do")) {
+			query = "SELECT * FROM question WHERE id IN (SELECT qId FROM answer WHERE userId = ?)";
+		} else if(action.equals("/selectedList.do")) {
+			query = "SELECT * FROM question WHERE id IN (SELECT qId FROM answer WHERE userId = ?) AND select_userId = ?";
+		}
+		
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, SearchuserId);
+			if(action.equals("/selectedList.do")) {
+				pstmt.setString(2, SearchuserId);
+			}
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String userId = rs.getString("userId");
+				String category = rs.getString("category");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				int view = rs.getInt("view");
+				Date created = rs.getDate("created");
+				
+				SearchVO searchVO = new SearchVO(id, userId, category, title, content, view, created);
+				infoList.add(searchVO);
+			}
+			rs.close();
+			pstmt.close();
+			con.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return infoList;
+	}
+	
 	public List<SearchVO> wordSearch(SearchVO vo){
 		List<SearchVO> searchList = new ArrayList<SearchVO>();
 		String searchCategory = vo.getCategory();
@@ -159,7 +202,7 @@ public class SearchDAO {
 		return AllMainQuestions;
 	}
 	
-	public List<ArrayList<SearchVO>> mypageSearch(SearchVO vo) {
+	public List<ArrayList<SearchVO>> profileSearch(SearchVO vo) {
 		List<ArrayList<SearchVO>> AllMypageQuestions =  new ArrayList<ArrayList<SearchVO>>();
 		List<SearchVO> myQuestions = new ArrayList<SearchVO>();
 		List<SearchVO> answeringQuestions = new ArrayList<SearchVO>();

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	request.setCharacterEncoding("utf-8");
 	String interests = (String)session.getAttribute("sessionInterests");
@@ -15,7 +16,11 @@
 <title>QAS</title>
 </head>
 <body>
+	<c:if test="${isLogin != true }">
+		<jsp:forward page="login.jsp"/>
+	</c:if>
 	<input type="hidden" id="isLogin" value=${isLogin } />
+	<input type="hidden" id="userId" value=${sessionId }>
 	<h1>회원 정보 수정</h1>
 	<form name="signupForm">		
 		<p>비밀번호</p>
@@ -41,18 +46,19 @@
 		<p>
 			<select name="interests" id="interests">
 				<option value="" <%if(interests.equals(null)){%> selected<%}%>>--선택--</option>
-				<option value="edu" <%if(interests.equals("edu")){%> selected<%}%>>교육</option>
-				<option value="game" <%if(interests.equals("game")){%> selected<%}%>>게임</option>
-				<option value="health" <%if(interests.equals("health")){%> selected<%}%>>건강</option>
-				<option value="trip" <%if(interests.equals("trip")){%> selected<%}%>>여행</option>
-				<option value="shopping" <%if(interests.equals("shopping")){%> selected<%}%>>쇼핑</option>
-				<option value="life" <%if(interests.equals("life")){%> selected<%}%>>생활</option>
+				<option value="교육" <%if(interests.equals("교육")){%> selected<%}%>>교육</option>
+				<option value="게임" <%if(interests.equals("게임")){%> selected<%}%>>게임</option>
+				<option value="건강" <%if(interests.equals("건강")){%> selected<%}%>>건강</option>
+				<option value="여행" <%if(interests.equals("여행")){%> selected<%}%>>여행</option>
+				<option value="쇼핑" <%if(interests.equals("쇼핑")){%> selected<%}%>>쇼핑</option>
+				<option value="생활" <%if(interests.equals("생활")){%> selected<%}%>>생활</option>
 			</select>
 		</p>
-		<input type="button" value="회원 정보 변경" onclick="change_info()"/>
-		<input type="reset" value="다시 입력" />
-		<a href="/test/main">메인 페이지로 이동</a>
-		<input type="button" id="backButton" onclick="goBack()" value="뒤로가기" />
+		<p>자기 소개</p>
+		<input type="text" id="introduce" value=${sessionIntroduce }>
+		<p><input type="button" value="회원 정보 변경" onclick="change_info()"/></p>
+		<p><a href="/test/main">메인 페이지로 이동</a></p>
+		<p><input type="button" id="backButton" onclick="goBack()" value="뒤로가기" /></p>
 	</form>
 </body>
 </html>

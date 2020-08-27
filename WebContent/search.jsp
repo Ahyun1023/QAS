@@ -26,29 +26,27 @@
 			<td><b>조회수</b></td>
 			<td><b>작성 날짜</b></td>
 		</tr>
-		<c:choose>
-			<c:when test="${searchList == null }">
+
+		<c:if test="${searchList == null }">
 				<tr>
-					<td colspan="5">
-						<b>검색 결과가 없습니다.</b>
-					</td>
+				<td colspan="5">
+					<b>검색 결과가 없습니다.</b>
+				</td>
+			</tr>
+		</c:if>
+
+		<c:if test="${searchList != null }">
+			<c:forEach var="search" items="${searchList }">
+				<tr align="center">
+					<td>${search.id }</td>
+					<td><a href="/test/question/read.do?qid=${search.id }">${search.title }</a></td>
+					<td>${search.category }</td>
+					<td>${search.userId }</td>
+					<td>${search.view }</td>
+					<td>${search.created }</td>
 				</tr>
-			</c:when>
-		</c:choose>
-		<c:choose>
-			<c:when test="${searchList != null }">
-				<c:forEach var="search" items="${searchList }">
-					<tr align="center">
-						<td>${search.id }</td>
-						<td><a href="/test/question/read.do?qid=${search.id }">${search.title }</a></td>
-						<td>${search.category }</td>
-						<td>${search.userId }</td>
-						<td>${search.view }</td>
-						<td>${search.created }</td>
-					</tr>
-				</c:forEach>
-			</c:when>
-		</c:choose>
+			</c:forEach>
+		</c:if>
 	</table>
 </body>
 </html>

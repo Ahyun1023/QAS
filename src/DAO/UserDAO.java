@@ -27,6 +27,92 @@ public class UserDAO {
 		}
 	}
 	
+	public List<UserVO> findBestAnswerer(){
+		List<UserVO> bestAnswererList = new ArrayList<UserVO>();
+		List<Object> userList = new ArrayList<Object>();
+		for(int i = 0; i < 3; i++) {
+			userList.add("");
+		}
+		try {
+			con = dataFactory.getConnection();
+			String query = "SELECT select_userId FROM question GROUP BY select_userId ORDER BY count(select_userId) DESC LIMIT 3";
+			pstmt = con.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+			int i = 0;
+			while(rs.next()) {
+				String userId = rs.getString("select_userId");
+
+				if(userId == null) {
+					continue;
+				} else {
+					userList.set(i, userId);
+				}
+				i++;
+			}
+			
+			query = "SELECT * FROM users WHERE id IN (?, ?, ?) AND grade <= 5";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, (String)userList.get(0));
+			pstmt.setString(2, (String)userList.get(1));
+			pstmt.setString(3, (String)userList.get(2));
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String id = rs.getString("id");
+				String name = rs.getString("name");
+				String interests = rs.getString("interests");
+				int grade = rs.getInt("grade");
+				String introduce = rs.getString("introduce");
+				
+				UserVO vo = new UserVO();
+				vo.setId(id);
+				vo.setName(name);
+				vo.setInterests(interests);
+				vo.setGrade(grade);
+				vo.setIntroduce(introduce);
+				bestAnswererList.add(vo);
+			}
+			con.close();
+			pstmt.close();
+			rs.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return bestAnswererList;
+	}
+	
+	public List<UserVO> findUserInfo(UserVO vo){
+		List<UserVO> userInfo = new ArrayList<UserVO>();
+		String userid = vo.getId();
+		try {
+			con = dataFactory.getConnection();
+			String query = "SELECT id, name, interests, grade, introduce FROM users WHERE id=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userid);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String id = rs.getString("id");
+				String name = rs.getString("name");
+				String interests = rs.getString("interests");
+				int grade = rs.getInt("grade");
+				String introduce = rs.getString("introduce");
+				
+				vo.setId(id);
+				vo.setName(name);
+				vo.setInterests(interests);
+				vo.setGrade(grade);
+				vo.setIntroduce(introduce);
+				userInfo.add(vo);
+			}
+			
+			con.close();
+			pstmt.close();
+			rs.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return userInfo;
+	}
+	
 	public boolean idCheck(UserVO vo) {
 		boolean isTrue = false;
 		String id = vo.getId();
@@ -69,6 +155,7 @@ public class UserDAO {
 				String emailForm = rs.getString("emailForm");
 				String interests = rs.getString("interests");
 				int grade = rs.getInt("grade");
+				String introduce = rs.getString("introduce");
 				
 				vo.setId(id);
 				vo.setPw(pw);
@@ -77,6 +164,7 @@ public class UserDAO {
 				vo.setEmailForm(emailForm);
 				vo.setInterests(interests);
 				vo.setGrade(grade);
+				vo.setIntroduce(introduce);
 				list.add(vo);
 			}
 			con.close();
@@ -125,11 +213,12 @@ public class UserDAO {
 		String email = vo.getEmail();
 		String emailForm = vo.getEmailForm();
 		String interests = vo.getInterests();
+		String introduce = vo.getIntroduce();
 		
 		try {
 			con = dataFactory.getConnection();
 			
-			String query = "UPDATE users SET pw=?, name=?, email=?, emailForm=?, interests=? WHERE id=?";
+			String query = "UPDATE users SET pw=?, name=?, email=?, emailForm=?, interests=?, introduce=? WHERE id=?";
 			
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, pw);
@@ -137,7 +226,8 @@ public class UserDAO {
 			pstmt.setString(3, email);
 			pstmt.setString(4, emailForm);
 			pstmt.setString(5, interests);
-			pstmt.setString(6, id);
+			pstmt.setString(6, introduce);
+			pstmt.setString(7, id);
 			pstmt.executeUpdate();
 			
 			con.close();

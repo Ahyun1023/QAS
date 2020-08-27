@@ -35,6 +35,7 @@
 				<p>작성일: ${myQ.created }</p>
 			</c:forEach>
 		</c:otherwise>
+		<p><a href="/test/myinfo/QuestionList.do">+더보기</a></p>
 	</c:choose>
 	<h1>내가 답변한 질문</h1>
 		<c:choose>
@@ -51,6 +52,7 @@
 				</c:forEach>
 			</c:forEach>
 		</c:otherwise>
+		<p><a href="/test/myinfo/AnswerList.do">+더보기</a></p>
 	</c:choose>
 	<h1>답변이 채택된 질문</h1>
 		<c:choose>
@@ -63,6 +65,7 @@
 				<p>카테고리: ${selectedQ.category }</p>
 				<p>작성일: ${selectedQ.created }</p>
 			</c:forEach>
+			<p><a href="/test/myinfo/SelectedList.do">+더보기</a></p>
 		</c:otherwise>
 	</c:choose>
 </body>

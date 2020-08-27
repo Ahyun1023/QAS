@@ -11,10 +11,12 @@ public class SearchVO {
 	private int view;
 	private Date created;
 	
+	//검색용
 	private String searchWord;
 	private String searchCategory;
 	
-	private int count;
+	//뭐였더라 이건
+	private int count; 
 	
 	public SearchVO(int id, String userId, String category, String title, String content, int view, Date created) {
 		super();

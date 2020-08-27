@@ -1,21 +1,21 @@
 window.onload = ()=>{
 	let questionId = $('#questionId').val();
 	if(questionId == undefined){
-		location.href = "/test/noneQuestion.html";
+		location.href = "/test/noneQuestion.jsp";
 		}
 	}
 
 function writeAns(){
 	let isLogin = $('#isLogin').val();
 	let qId = $('#answerQid').val();
-	let category = $('#questionCategory').val();s
+	let category = $('#questionCategory').val();
 	let title = $('#answerTitle').val();
 	let content = $('#answerContent').val();
 	let isUserid = $('#isUserid').val();
 	
 	if(isLogin != "true"){
 		if(confirm("로그인이 필요한 서비스입니다. 로그인하시겠습니까?") == true){
-			location.href='/test/login.html';
+			location.href='/test/login.jsp';
 		} else{
 			return;
 		}
@@ -29,23 +29,29 @@ function writeAns(){
 	} else if(content == '' || content == null){
 		alert('답변의 내용을 작성해주세요.');
 		return;
+	} else{		
+		if(confirm('답변이 채택되면 답변을 수정할 수 없습니다.\n답변을 등록하시겠습니까?') != true){
+			return;
+		} else{
+			$(document).ready(()=>{
+				$.ajax({
+					url: "/test/answer/add.do",
+					type: "POST",
+					data: {
+						answerQid: qId,
+						answerCategory: category,
+						answerTitle: title,
+						answerContent: content
+					},
+					success: ()=>{
+						alert('정상적으로 답변이 작성되었습니다.');
+						location.reload();
+					}
+				})
+			})
+		}
+
 	}
-	$(document).ready(()=>{
-	$.ajax({
-		url: "/test/answer/add.do",
-		type: "POST",
-		data: {
-			answerQid: qId,
-			answerCategory: category,
-			answerTitle: title,
-			answerContent: content
-		},
-		success: ()=>{
-			alert('정상적으로 답변이 작성되었습니다.');
-			location.reload();
-			}
-		})
-	})
 }
 
 function deleteAnswer(Aid){
@@ -72,16 +78,15 @@ function modifiedAnswer(Aid){
 	let Atitle = $('#Atitle' + Aid).text();
 	let Acontent = $('#Acontent' + Aid).text();
 	
-	document.getElementById("AmodifiedButton").setAttribute("onClick", "updateAnswer()");
+	document.getElementById("AmodifiedButton").setAttribute("onClick", "updateAnswer(" + Aid + ")");
 
 	AtitleHtml.innerHTML = "<input type='text' id='update_Title' value='" + Atitle +"'>";
 	AcontentHtml.innerHTML = "<textarea id='update_Content' cols='30' rows='10'>" + Acontent + "</textarea>";
 }
 
-function updateAnswer(){
+function updateAnswer(Aid){
 	let updateTitle = $('#update_Title').val();
 	let updateContent = $('#update_Content').val();
-	let updateAnswerId = $('#answerId').val();
 	
 	$(document).ready(()=>{
 		$.ajax({
@@ -90,7 +95,7 @@ function updateAnswer(){
 			data: {
 				updateTitle: updateTitle,
 				updateContent: updateContent,
-				updateAnswerId: updateAnswerId
+				updateAnswerId: Aid
 			},
 			success: ()=>{
 				alert('답변이 성공적으로 수정되었습니다.');
@@ -166,18 +171,22 @@ function updateQuestion(){
 
 function selectionAnswer(Aid){
 	let qId = $('#questionId').val();
-	$(document).ready(()=>{
-		$.ajax({
-			url: "/test/question/select.do",
-			type: "post",
-			data: {
-				qId: qId,
-				selectAuserId: Aid
-			},
-			success: ()=>{
-				alert('해당 답변을 성공적으로 채택했습니다.');
-				location.reload();
-			}
-		})
-	})
+	if(confirm("이 답변을 채택하시겠습니까?") != true){
+		return;
+	} else{
+		$(document).ready(()=>{
+			$.ajax({
+				url: "/test/question/select.do",
+				type: "post",
+				data: {
+					qId: qId,
+					selectAuserId: Aid
+				},
+				success: ()=>{
+					alert('해당 답변을 성공적으로 채택했습니다.');
+					location.reload();
+				}
+			})
+		})	
+	}
 }

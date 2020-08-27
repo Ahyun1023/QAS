@@ -3,12 +3,14 @@ function change_info(){
     let kor_check =  /^[A-Za-z0-9]+$/; 
     let blank_check = /[\s]/g;
 
+	let userId = $('#userId').val();
 	let pw = $('#pw').val();
 	let pw_check = $('#pw_check').val();
 	let name = $('#name').val();
 	let email = $('#email').val();
 	let emailForm = $('#emailForm').val();
 	let interests = $('#interests').val();
+	let introduce = $('#introduce').val();
 	
 	if(pw == '' || pw_check == ''){
 		alert('비밀번호를 입력해주세요.');
@@ -40,11 +42,12 @@ function change_info(){
 					Cname: name,
 					Cemail: email,
 					CemailForm: emailForm,
-					Cinterests: interests
+					Cinterests: interests,
+					Cintroduce: introduce
 				},
 				success: ()=>{
 					alert('정보 수정에 성공했습니다.');
-					location.href = '/test/mypage';
+					location.href = '/test/profile?userId=' + userId;
 				}					
 			})
 		})

@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DAO.SearchDAO;
+import DAO.UserDAO;
 import VO.SearchVO;
+import VO.UserVO;
 
 /**
  * Servlet implementation class MainController
@@ -23,12 +25,14 @@ import VO.SearchVO;
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	SearchDAO searchDAO;
+	UserDAO userDAO;
 	
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		searchDAO = new SearchDAO();
+		userDAO = new UserDAO();
 	}
 	
 	/**
@@ -43,7 +47,6 @@ public class MainController extends HttpServlet {
      */
     public MainController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -69,11 +72,13 @@ public class MainController extends HttpServlet {
 		List<SearchVO> lessViewQuestions = new ArrayList<SearchVO>();
 		List<SearchVO> todayQuestions = new ArrayList<SearchVO>();
 		List<SearchVO> myInterestQuestions = new ArrayList<SearchVO>();
+		List<UserVO> bestAnswererList = new ArrayList<UserVO>();
 		
-		SearchVO vo = new SearchVO(interest);
-		vo.setCategory(interest);
+		SearchVO searchVO = new SearchVO();
+		searchVO.setCategory(interest);
 		
-		AllMainQuestions = searchDAO.mainSearch(vo);
+		AllMainQuestions = searchDAO.mainSearch(searchVO);
+		bestAnswererList = userDAO.findBestAnswerer();
 		
 		moreViewQuestions.addAll(AllMainQuestions.get(0));
 		lessViewQuestions.addAll(AllMainQuestions.get(1));
@@ -84,6 +89,7 @@ public class MainController extends HttpServlet {
 		request.setAttribute("lessViewQ", lessViewQuestions);
 		request.setAttribute("todayQ", todayQuestions);
 		request.setAttribute("myInterestQ", myInterestQuestions);
+		request.setAttribute("bestAnswererList", bestAnswererList);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/main.jsp");
 		dispatcher.forward(request, response);

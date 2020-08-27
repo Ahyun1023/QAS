@@ -81,7 +81,7 @@ public class SearchController extends HttpServlet {
 		String searchCategory = request.getParameter("category");
 		String searchWord = request.getParameter("word");
 
-		SearchVO vo = new SearchVO(searchCategory, searchWord);
+		SearchVO vo = new SearchVO();
 		vo.setCategory(searchCategory);
 		vo.setSearchWord(searchWord);
 		
@@ -109,7 +109,7 @@ public class SearchController extends HttpServlet {
 		List<SearchVO> todayQuestions = new ArrayList<SearchVO>();
 		List<SearchVO> myInterestQuestions = new ArrayList<SearchVO>();
 		
-		SearchVO vo = new SearchVO(interest);
+		SearchVO vo = new SearchVO();
 		
 		vo.setCategory(interest);
 		AllMainQuestions = searchDAO.mainSearch(vo);
@@ -118,13 +118,6 @@ public class SearchController extends HttpServlet {
 		lessViewQuestions.addAll(AllMainQuestions.get(1));
 		todayQuestions.addAll(AllMainQuestions.get(2));
 		myInterestQuestions.addAll(AllMainQuestions.get(3));
-		
-		//////////////////////////////////////////
-		/*System.out.println("more:" + moreViewQuestions);
-		System.out.println("less: " + lessViewQuestions);
-		System.out.println("today: " +  todayQuestions);
-		System.out.println("interest: " + myInterestQuestions);*/
-		//////////////////////////////////////////
 
 		request.setAttribute("moreViewQuestions", moreViewQuestions);
 		request.setAttribute("lessViewQuestions", lessViewQuestions);

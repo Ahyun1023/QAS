@@ -1,6 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,17 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DAO.SearchDAO;
+import VO.SearchVO;
+
 /**
  * Servlet implementation class MyinfoController
  */
-@WebServlet("/myinfo/*")
-public class MyinfoController extends HttpServlet {
+@WebServlet("/userinfo/*")
+public class UserInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    SearchDAO searchDAO;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyinfoController() {
+    public UserInfoController() {
         super();
     }
 
@@ -26,6 +32,7 @@ public class MyinfoController extends HttpServlet {
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
+		searchDAO = new SearchDAO();
 	}
 
 	/**
@@ -49,7 +56,24 @@ public class MyinfoController extends HttpServlet {
 	}
 
 	private void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		String action = request.getPathInfo();
+
+		findInfoList(request, response, action);
+	}
+
+	private void findInfoList(HttpServletRequest request, HttpServletResponse response, String action) throws ServletException, IOException {
+		String userId= request.getParameter("userId");
 		
+		SearchVO vo = new SearchVO();
+		vo.setUserId(userId);
+		
+		List<SearchVO> infoList = searchDAO.findInfoList(vo, action);
+		
+		request.setAttribute("infoList", infoList);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/userInfoList.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

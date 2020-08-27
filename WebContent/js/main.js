@@ -16,7 +16,8 @@ function locQuestion(){
 	}
 }
 
-function locMypage(){
+function locMyProfile(){
+	let userId = $('#userId').val();
 	if($('#isLogin').val() != "true"){
 		if(confirm("로그인이 필요한 서비스입니다. 로그인하시겠습니까?") == true){
 			location.href='/test/login.jsp';
@@ -24,7 +25,7 @@ function locMypage(){
 			return;
 		}
 	} else{
-		location.href = "/test/mypage";
+		location.href = "/test/profile?userId=" + userId;
 	}
 }
 

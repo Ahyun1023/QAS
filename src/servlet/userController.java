@@ -141,6 +141,7 @@ public class userController extends HttpServlet {
 		String email = request.getParameter("Cemail");
 		String emailForm = request.getParameter("CemailForm");
 		String interests = request.getParameter("Cinterests");
+		String introduce = request.getParameter("Cintroduce");
 		
 		UserVO vo = new UserVO();
 		vo.setId(id);
@@ -149,6 +150,7 @@ public class userController extends HttpServlet {
 		vo.setEmail(email);
 		vo.setEmailForm(emailForm);
 		vo.setInterests(interests);
+		vo.setIntroduce(introduce);
 		userDAO.updateUser(vo);
 		
 		session.setAttribute("sessionPw", pw);
@@ -156,6 +158,8 @@ public class userController extends HttpServlet {
 		session.setAttribute("sessionEmail", email);
 		session.setAttribute("sessionEmailForm", emailForm);
 		session.setAttribute("sessionInterests", interests);
+		session.setAttribute("sessionIntroduce", introduce);
+
 	}
 
 	@SuppressWarnings({ "unchecked" })
@@ -178,6 +182,7 @@ public class userController extends HttpServlet {
 			String emailForm = vo.getEmailForm();
 			String interests = vo.getInterests();
 			int grade = vo.getGrade();
+			String introduce = vo.getIntroduce();
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("isLogin", true);
@@ -188,6 +193,7 @@ public class userController extends HttpServlet {
 			session.setAttribute("sessionEmailForm", emailForm);
 			session.setAttribute("sessionInterests", interests);
 			session.setAttribute("sessionGrade", grade);
+			session.setAttribute("sessionIntroduce", introduce);
 			
 			JSONObject obj = new JSONObject();
 			obj.put("result", "success");

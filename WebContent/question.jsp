@@ -20,7 +20,6 @@
 		<c:set var="isSelect" value="${question.selection }"/>
 		<c:set var="select_userId" value="${question.select_userId }"/>
 		<c:set var="qUserid" value="${question.userId }" />
-		<!-- <input type="hidden" value="question.selection" />-->
 		<h1>
 			Q.<span id="Qtitle${question.id }">${question.title }</span>
 			<c:if test="${isSelect == 1 }">

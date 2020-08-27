@@ -43,11 +43,11 @@ public class AnswerDAO {
 				int id = rs.getInt("id");
 				String userId = rs.getString("userId");
 				String title = rs.getString("title");
-				Date created = rs.getDate("created");
 				String content = rs.getNString("content");
+				Date created = rs.getDate("created");
 				
-				AnswerVO answerVO = new AnswerVO(id, userId, title, content, created);
-				answer.add(answerVO);
+				vo = new AnswerVO(id, userId, title, content, created);
+				answer.add(vo);
 			}
 			rs.close();
 			pstmt.close();

@@ -99,8 +99,16 @@ public class QuestionDAO {
 				int selection = rs.getInt("selection");
 				String select_userId = rs.getString("select_userId");
 				
-				QuestionVO questionVO = new QuestionVO(id, userId, category, title, view, created, content, selection, select_userId);
-				question.add(questionVO);
+				vo.setId(id);
+				vo.setUserId(userId);
+				vo.setCategory(category);
+				vo.setTitle(title);
+				vo.setView(view);
+				vo.setCreated(created);
+				vo.setContent(content);
+				vo.setSelection(selection);
+				vo.setSelect_userId(select_userId);
+				question.add(vo);
 			}
 			rs.close();
 			pstmt.close();
