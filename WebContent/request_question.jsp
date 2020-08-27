@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="js/write_question.js?v=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
+<script src="js/request_question.js?v=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
 <script src="js/common.js?v=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <meta charset="UTF-8">
@@ -14,6 +14,7 @@
 	<input type="hidden" id=isLogin value="${isLogin }" />
 	<h1>질문 작성하기</h1>
 	<form name="questionForm">
+		<p>답변을 요청할 유저: <span id="requestId">${param.requestId }</span></p>
 		<input type="text" name="title" id="title" maxlength="80" />
 		<select name="category" id="category">
 			<option value="">--선택--</option>

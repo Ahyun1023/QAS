@@ -71,13 +71,34 @@ public class QuestionController extends HttpServlet {
 			DeleteQuestion(request, response);
 		} else if(action.equals("/select.do")) {
 			SelectAnswer(request, response);
+		} else if(action.equals("/request.do")){
+			RequestQuestion(request, response);
 		}
 		if(nextPage != null) {
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 			dispatch.forward(request, response);
 		}
 	}
-	
+
+	private void RequestQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
+		String userId = (String)session.getAttribute("sessionId");
+		String request_user = request.getParameter("requestId");
+		String title = request.getParameter("save_title");
+		String category = request.getParameter("save_category");
+		String content = request.getParameter("save_content");
+		
+		QuestionVO vo = new QuestionVO(userId, request_user, title, category, content);
+		vo.setUserId(userId);
+		vo.setRequest_user(request_user);
+		vo.setTitle(title);
+		vo.setCategory(category);
+		vo.setContent(content);
+		
+		questionDAO.requestAddQuestion(vo);
+	}
+
 	private void SelectAnswer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String select_userId = request.getParameter("selectAuserId");
 		int id = Integer.parseInt(request.getParameter("qId"));

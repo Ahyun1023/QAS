@@ -74,8 +74,8 @@ public class ProfileController extends HttpServlet {
 		List<ArrayList<SearchVO>> AllProfileQuestions =  new ArrayList<ArrayList<SearchVO>>();
 		List<SearchVO> myQuestions = new ArrayList<SearchVO>();
 		List<SearchVO> answeringQuestions = new ArrayList<SearchVO>();
-		List<SearchVO> answerings = new ArrayList<SearchVO>();
 		List<SearchVO> selectedQuestions = new ArrayList<SearchVO>();
+		List<SearchVO> responseQuestions = new ArrayList<SearchVO>();
 		
 		userInfo = userDAO.findUserInfo(userVO);
 		
@@ -83,14 +83,14 @@ public class ProfileController extends HttpServlet {
 		
 		myQuestions.addAll(AllProfileQuestions.get(0));
 		answeringQuestions.addAll(AllProfileQuestions.get(1));
-		answerings.addAll(AllProfileQuestions.get(2));
-		selectedQuestions.addAll(AllProfileQuestions.get(3));
+		selectedQuestions.addAll(AllProfileQuestions.get(2));
+		responseQuestions.addAll(AllProfileQuestions.get(3));
 		
 		request.setAttribute("userInfo", userInfo);
 		request.setAttribute ("myQuestions", myQuestions);
 		request.setAttribute("answeringQuestions", answeringQuestions);
-		request.setAttribute("answerings", answerings);
 		request.setAttribute("selectedQuestions", selectedQuestions);
+		request.setAttribute("responseQuestions", responseQuestions);
 				
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/profile.jsp");
 		dispatcher.forward(request, response);

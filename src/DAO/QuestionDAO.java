@@ -28,6 +28,32 @@ public class QuestionDAO {
 		}
 	}
 	
+	public void requestAddQuestion(QuestionVO vo) {
+		try {
+			con = dataFactory.getConnection();
+			String userId = vo.getUserId();
+			String request_user = vo.getRequest_user();
+			String title = vo.getTitle();
+			String category = vo.getCategory();
+			String content = vo.getContent();
+			
+			String query = "INSERT INTO question (userId, category, title, content, view, created, request_user, selection)";
+			query += " VALUES(?, ?, ?, ?, 0, NOW(), ?, 0)";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, category);
+			pstmt.setString(3, title);
+			pstmt.setString(4, content);
+			pstmt.setString(5, request_user);
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+			con.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void addQuestion(QuestionVO vo) {
 		try {
 			con = dataFactory.getConnection();

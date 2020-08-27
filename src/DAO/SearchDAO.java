@@ -39,6 +39,8 @@ public class SearchDAO {
 			query = "SELECT * FROM question WHERE id IN (SELECT qId FROM answer WHERE userId = ?)";
 		} else if(action.equals("/selectedList.do")) {
 			query = "SELECT * FROM question WHERE id IN (SELECT qId FROM answer WHERE userId = ?) AND select_userId = ?";
+		}else if(action.equals("/responseList.do")) {
+			query = "SELECT * FROM question WHERE request_user=?";
 		}
 		
 		try {
@@ -206,8 +208,8 @@ public class SearchDAO {
 		List<ArrayList<SearchVO>> AllMypageQuestions =  new ArrayList<ArrayList<SearchVO>>();
 		List<SearchVO> myQuestions = new ArrayList<SearchVO>();
 		List<SearchVO> answeringQuestions = new ArrayList<SearchVO>();
-		List<SearchVO> answerings = new ArrayList<SearchVO>();
 		List<SearchVO> selectedQuestions = new ArrayList<SearchVO>();
+		List<SearchVO> responseQuestions = new ArrayList<SearchVO>();
 		String searchUserId = vo.getUserId();
 		try {
 			con = dataFactory.getConnection();
@@ -227,29 +229,24 @@ public class SearchDAO {
 				vo = new SearchVO(id, userId, category, title, content, view, created);
 				myQuestions.add(vo);
 			}
-			query = "SELECT id, category, title, created FROM question WHERE id IN (SELECT qId FROM answer WHERE userId = ?) LIMIT 5";
+			//answeringQuestions
+			query = "SELECT * FROM question WHERE id IN (SELECT qId FROM answer WHERE userId = ?) LIMIT 5";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, searchUserId);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				int id = rs.getInt("id");
+				String userId = rs.getString("userId");
 				String category = rs.getString("category");
 				String title = rs.getString("title");
-				
-				vo = new SearchVO(id, category, title);
-				answeringQuestions.add(vo);
-			}
-			query = "SELECT title, created FROM answer WHERE userId=? LIMIT 5";
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, searchUserId);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				String title = rs.getString("title");
+				String content = rs.getString("content");
+				int view = rs.getInt("view");
 				Date created = rs.getDate("created");
 				
-				vo = new SearchVO(title, created);
-				answerings.add(vo);
+				vo = new SearchVO(id, userId, category, title, content, view, created);
+				answeringQuestions.add(vo);
 			}
+			//selectedQuestions
 			query = "SELECT * FROM question WHERE select_userId=? LIMIT 5";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, searchUserId);
@@ -266,11 +263,28 @@ public class SearchDAO {
 				vo = new SearchVO(id, userId, category, title, content, view, created);
 				selectedQuestions.add(vo);
 			}
+			//responseQuestions
+			query = "SELECT * FROM question WHERE request_user=? AND userId NOT IN(SELECT userId question WHERE userId=\"(삭제된 이용자)\") ORDER BY RAND() LIMIT 3";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, searchUserId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String userId = rs.getString("userId");
+				String category = rs.getString("category");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				int view = rs.getInt("view");
+				Date created = rs.getDate("created");
+				
+				vo = new SearchVO(id, userId, category, title, content, view, created);
+				responseQuestions.add(vo);
+			}
 			
 			AllMypageQuestions.add((ArrayList<SearchVO>)myQuestions);
 			AllMypageQuestions.add((ArrayList<SearchVO>)answeringQuestions);
-			AllMypageQuestions.add((ArrayList<SearchVO>)answerings);
 			AllMypageQuestions.add((ArrayList<SearchVO>)selectedQuestions);
+			AllMypageQuestions.add((ArrayList<SearchVO>)responseQuestions);
 			
 			rs.close();
 			pstmt.close();

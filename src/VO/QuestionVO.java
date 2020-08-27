@@ -10,6 +10,7 @@ public class QuestionVO {
 	private String content;
 	private int view;
 	private Date created;
+	private String request_user;
 	private int selection;
 	private String select_userId;
 	
@@ -41,6 +42,15 @@ public class QuestionVO {
 		super();
 		this.id = id;
 		this.title = title;
+		this.content = content;
+	}
+	
+	public QuestionVO(String userId, String request_user, String title, String category, String content) {
+		super();
+		this.userId = userId;
+		this.request_user = request_user;
+		this.title = title;
+		this.category = category;
 		this.content = content;
 	}
 	
@@ -109,5 +119,13 @@ public class QuestionVO {
 
 	public void setSelection(int selection) {
 		this.selection = selection;
+	}
+
+	public String getRequest_user() {
+		return request_user;
+	}
+
+	public void setRequest_user(String request_user) {
+		this.request_user = request_user;
 	}
 }
