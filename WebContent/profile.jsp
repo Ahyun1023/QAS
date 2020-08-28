@@ -20,6 +20,7 @@
 		<input type="hidden" id="myId" value="${sessionId }" />
 		<h1>${userInfo.id}님의 프로필</h1>
 		<h3>${userInfo.id}님은 현재 ${userInfo.grade}등급 입니다.</h3>
+		<h3>현재 포인트: ${userInfo.point }</h3>
 		<c:choose>
 			<c:when test="${userInfo.interests == '' }">
 				<p>관심분야가 없습니다.</p>

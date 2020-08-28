@@ -19,3 +19,7 @@
 	-webkit-user-select: none;
 	user-select: none;
 }
+
+#required{
+	color: red;
+}

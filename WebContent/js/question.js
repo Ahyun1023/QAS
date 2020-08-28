@@ -180,7 +180,8 @@ function selectionAnswer(Aid){
 				type: "post",
 				data: {
 					qId: qId,
-					selectAuserId: Aid
+					selectAuserId: Aid,
+					request_user: $('#request_user').val()
 				},
 				success: ()=>{
 					alert('해당 답변을 성공적으로 채택했습니다.');

@@ -39,7 +39,19 @@
 			<input type="button" value="삭제하기" onclick="deleteQuestion(${question.id})"/>
 			</c:if>
 		</p>
-
+		<c:if test="${question.request_user != null }">
+		<input type="hidden" id="request_user" value="${question.request_user }" />
+			<c:choose>
+				<c:when test="${question.request_user == sessionId }">
+					<p>나에게 묻는 질문</p>
+				</c:when>
+				<c:otherwise>
+					<p>${question.request_user }님에게 묻는 질문</p>
+				</c:otherwise>
+			</c:choose>
+		</c:if>
+		
+		
 		<hr />
 		<span id="Qcontent${question.id }">${question.content }</span>
 	</c:forEach>

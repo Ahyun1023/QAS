@@ -102,9 +102,12 @@ public class QuestionController extends HttpServlet {
 	private void SelectAnswer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String select_userId = request.getParameter("selectAuserId");
 		int id = Integer.parseInt(request.getParameter("qId"));
+		String request_user = request.getParameter("request_user");
+		
 		QuestionVO vo = new QuestionVO(id);
 		vo.setId(id);
 		vo.setSelect_userId(select_userId);
+		vo.setRequest_user(request_user);
 		questionDAO.selectAnswer(vo);
 	}
 

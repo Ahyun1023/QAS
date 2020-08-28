@@ -15,21 +15,23 @@
 	<div id="signup_terms">
 		약관들... <!-- 나중에 할래 -->
 	</div>
+	<label id="termsCheckLabel"><input type="checkbox" id="termsCheck"><span id="required">*</span>약관을 모두 확인하였으며, 이에 동의합니다.</label>
 	<form name="signupForm">
-		<p>아이디</p>
+		<p><span id="required">*</span>아이디</p>
+		
 		<p>4~8자의 영문과 숫자만 입력할 수 있습니다.</p>
 		<p><input type="text" id="id" /></p>
 		<span id="isIdExist"></span>
-		<p>비밀번호</p>
+		<p><span id="required">*</span>비밀번호</p>
 		<p>8~16자의 영문과 숫자만 입력할 수 있습니다.</p>
 		<p><input type="password" id="pw" /></p>
-		<p>비밀번호 확인</p>
+		<p><span id="required">*</span>비밀번호 확인</p>
 		<p><input type="password" id="pw_check" /></p>
 		<span id="isPwTrue"></span>
-		<p>이름</p>
+		<p><span id="required">*</span>이름</p>
 		<p>2~8자의 한글만 입력할 수 있습니다.</p>
 		<p><input type="text" id="name" /></p>
-		<p>이메일</p>
+		<p><span id="required">*</span>이메일</p>
 		<p>
 			<input type="text" id="email" />@
 			<select name="emailForm" id="emailForm">
@@ -52,6 +54,8 @@
 				<option value="생활">생활</option>
 			</select>
 		</p>
+		<p>한 줄 소개</p>
+		<p><input type="text" id="introduce" /></p>
 		<p><input type="button" value="회원 가입" onclick="signup()"/></p>
 		<input type="button" value="로그인 페이지로 이동" onclick="location.href='/test/login.jsp'"/>
 		<input type="button" value="메인 페이지로 이동" onclick="location.href='/test/main'"/>

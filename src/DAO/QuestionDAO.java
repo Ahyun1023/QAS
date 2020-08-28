@@ -124,6 +124,7 @@ public class QuestionDAO {
 				String content = rs.getNString("content");
 				int selection = rs.getInt("selection");
 				String select_userId = rs.getString("select_userId");
+				String request_user = rs.getString("request_user");
 				
 				vo.setId(id);
 				vo.setUserId(userId);
@@ -134,6 +135,7 @@ public class QuestionDAO {
 				vo.setContent(content);
 				vo.setSelection(selection);
 				vo.setSelect_userId(select_userId);
+				vo.setRequest_user(request_user);
 				question.add(vo);
 			}
 			rs.close();
@@ -165,6 +167,8 @@ public class QuestionDAO {
 			con = dataFactory.getConnection();
 			int id = vo.getId();
 			String select_userId = vo.getSelect_userId();
+			String request_user = vo.getRequest_user();
+			int point = 0;
 			
 			String query = "UPDATE question SET selection = 1, select_userId=? WHERE id=?";
 			pstmt = con.prepareStatement(query);
@@ -172,8 +176,53 @@ public class QuestionDAO {
 			pstmt.setInt(2, id);
 			pstmt.executeUpdate();
 			
+			if(select_userId.equals(request_user)) {
+				query = "UPDATE users SET point = point + 15 WHERE id=?";
+			} else {
+				query = "UPDATE users SET point = point + 10 WHERE id=?";
+			}
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, select_userId);
+			pstmt.executeUpdate();
+			
+			query = "SELECT point FROM users WHERE id=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, select_userId);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				point = rs.getInt("point");
+			}
+			
+			int grade = 10;
+			if (point >= 10){
+				grade = 9;
+			} if(point >= 20) {
+				grade = 8;
+			} if(point >= 35) {
+				grade = 7;
+			} if(point >= 55) {
+				grade = 6;
+			} if(point >= 80) {
+				grade = 5;
+			} if(point >= 110) {
+				grade = 4;
+			} if(point >= 155) {
+				grade = 3;
+			} if(point >= 195) {
+				grade = 2;
+			} if(point >= 250) {
+				grade = 1;
+			}
+			
+			query = "UPDATE users SET grade = ? WHERE id=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, grade);
+			pstmt.setString(2, select_userId);
+			pstmt.executeUpdate();
+			
 			pstmt.close();
 			con.close();
+			rs.close();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

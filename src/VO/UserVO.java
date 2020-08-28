@@ -9,6 +9,7 @@ public class UserVO {
 	private String email;
 	private String emailForm;
 	private int grade;
+	private int point;
 	private String interests;
 	private String introduce;
 	private Date created;
@@ -66,5 +67,11 @@ public class UserVO {
 	}
 	public void setCreated(Date created) {
 		this.created = created;
+	}
+	public int getPoint() {
+		return point;
+	}
+	public void setPoint(int point) {
+		this.point = point;
 	}
 }

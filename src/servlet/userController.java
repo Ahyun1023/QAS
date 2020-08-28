@@ -105,7 +105,16 @@ public class userController extends HttpServlet {
 			UserVO vo = new UserVO();
 			vo.setId(id);
 			userDAO.deleteUser(vo);
-			session.invalidate();
+			
+			session.removeAttribute("isLogin");
+			session.removeAttribute("sessionId");
+			session.removeAttribute("sessionPw");
+			session.removeAttribute("sessionName");
+			session.removeAttribute("sessionEmail");
+			session.removeAttribute("sessionEmailForm");
+			session.removeAttribute("sessionInterests");
+			session.removeAttribute("sessionIntroduce");
+			//session.invalidate();
 		}
 	}
 
@@ -116,6 +125,7 @@ public class userController extends HttpServlet {
 		String email = request.getParameter("signup_email");
 		String emailForm = request.getParameter("signup_EmailForm");
 		String interests = request.getParameter("signup_interests");
+		String introduce = request.getParameter("signup_introduce");
 		
 		UserVO vo = new UserVO();
 		vo.setId(id);
@@ -124,12 +134,22 @@ public class userController extends HttpServlet {
 		vo.setEmail(email);
 		vo.setEmailForm(emailForm);
 		vo.setInterests(interests);
+		vo.setIntroduce(introduce);
 		userDAO.addUser(vo);
 	}
 
 	private void Logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		session.invalidate();
+		session.removeAttribute("isLogin");
+		session.removeAttribute("sessionId");
+		session.removeAttribute("sessionPw");
+		session.removeAttribute("sessionName");
+		session.removeAttribute("sessionEmail");
+		session.removeAttribute("sessionEmailForm");
+		session.removeAttribute("sessionInterests");
+		session.removeAttribute("sessionIntroduce");
+		
+		//session.invalidate();
 		
 	}
 
@@ -181,7 +201,6 @@ public class userController extends HttpServlet {
 			String email = vo.getEmail();
 			String emailForm = vo.getEmailForm();
 			String interests = vo.getInterests();
-			int grade = vo.getGrade();
 			String introduce = vo.getIntroduce();
 			
 			HttpSession session = request.getSession();
@@ -192,7 +211,6 @@ public class userController extends HttpServlet {
 			session.setAttribute("sessionEmail", email);
 			session.setAttribute("sessionEmailForm", emailForm);
 			session.setAttribute("sessionInterests", interests);
-			session.setAttribute("sessionGrade", grade);
 			session.setAttribute("sessionIntroduce", introduce);
 			
 			JSONObject obj = new JSONObject();

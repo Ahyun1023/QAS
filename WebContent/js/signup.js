@@ -12,6 +12,7 @@ function signup(){
     let email = $('#email').val();
 	let emailForm = $('#emailForm').val();
 	let interests = $('#interests').val();
+	let introduce = $('#introduce').val();
 	
 	 if(isIdExist == true){
 		alert('사용할 수 없는 아이디입니다. 다른 아이디를 사용해주세요.');
@@ -49,7 +50,8 @@ function signup(){
             		signup_name: name,
             		signup_email: email,
 					signup_emailForm: emailForm,
-					signup_interests: interests
+					signup_interests: interests,
+					signup_introduce: introduce
             	},
             	success:()=>{
 					alert('회원가입 성공');
@@ -61,6 +63,7 @@ function signup(){
 }
 
 function idExistCheck(){
+	let kor_check =  /^[A-Za-z0-9]+$/;
 	$('#id').change(()=>{
 		$(document).ready(()=>{
 			$.ajax({
@@ -74,8 +77,12 @@ function idExistCheck(){
 						isIdExist = true;
 						$('#isIdExist').text('중복된 아이디입니다. 다른 아이디를 사용해주세요.');
 					} else if(isTrue.isTrue == false){
-						isIdExist = false;
-						$('#isIdExist').text('사용할 수 있는 아이디입니다.');
+						if(!kor_check.test($('#id').val())){
+							$('#isIdExist').text('사용할 수 없는 아이디입니다.');
+						} else{
+							isIdExist = false;
+							$('#isIdExist').text('사용할 수 있는 아이디입니다.');
+						}
 					}
 				}
 			})
@@ -85,5 +92,5 @@ function idExistCheck(){
 
 window.onload = ()=>{
 	idExistCheck();
-	pw_check();
+	pwCheck();
 }

@@ -85,7 +85,7 @@ public class UserDAO {
 		String userid = vo.getId();
 		try {
 			con = dataFactory.getConnection();
-			String query = "SELECT id, name, interests, grade, introduce FROM users WHERE id=?";
+			String query = "SELECT id, name, interests, grade, introduce ,point FROM users WHERE id=?";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, userid);
 			ResultSet rs = pstmt.executeQuery();
@@ -95,12 +95,14 @@ public class UserDAO {
 				String interests = rs.getString("interests");
 				int grade = rs.getInt("grade");
 				String introduce = rs.getString("introduce");
+				int point = rs.getInt("point");
 				
 				vo.setId(id);
 				vo.setName(name);
 				vo.setInterests(interests);
 				vo.setGrade(grade);
 				vo.setIntroduce(introduce);
+				vo.setPoint(point);
 				userInfo.add(vo);
 			}
 			
@@ -154,7 +156,6 @@ public class UserDAO {
 				String email = rs.getString("email");
 				String emailForm = rs.getString("emailForm");
 				String interests = rs.getString("interests");
-				int grade = rs.getInt("grade");
 				String introduce = rs.getString("introduce");
 				
 				vo.setId(id);
@@ -163,7 +164,6 @@ public class UserDAO {
 				vo.setEmail(email);
 				vo.setEmailForm(emailForm);
 				vo.setInterests(interests);
-				vo.setGrade(grade);
 				vo.setIntroduce(introduce);
 				list.add(vo);
 			}
@@ -183,11 +183,12 @@ public class UserDAO {
 		String email = vo.getEmail();
 		String emailForm = vo.getEmailForm();
 		String interests = vo.getInterests();
+		String introduce= vo.getIntroduce();
 		try {
 			con = dataFactory.getConnection();
 			
-			String query = "INSERT INTO users (id, pw, name, email, emailForm, interests, grade, created)";
-			query += " VALUES(?, ?, ?, ?, ?, ?, now())";
+			String query = "INSERT INTO users (id, pw, name, email, emailForm, interests, grade, point, introduce, created)";
+			query += " VALUES(?, ?, ?, ?, ?, ?, 10, 0, ?, now())";
 			
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, id);
@@ -196,7 +197,7 @@ public class UserDAO {
 			pstmt.setString(4, email);
 			pstmt.setString(5, emailForm);
 			pstmt.setString(6, interests);
-			pstmt.setInt(7, 10);
+			pstmt.setString(7, introduce);
 			pstmt.executeUpdate();
 			
 			pstmt.close();

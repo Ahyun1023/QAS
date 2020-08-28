@@ -11,7 +11,7 @@ function saveQ() {
 	} else if(save_category == ''){
 		alert('질문의 카테고리를 입력해주세요.');
 	} else{
-		if(confirm("답변이 작성된 이후 수정과 삭제를 할 수 없습니다.\n질문을 등록하시겠습니까?") == true){
+		if(confirm("답변자가 응답을 하지 않을 수도 있으며\n요청한 유저가 아닌 다른 유저가 답변을 달 수 있습니다.\n또한 답변이 작성된 이후 수정과 삭제를 할 수 없습니다.\n질문을 등록하시겠습니까?") == true){
 			$(document).ready(() => {
 			$.ajax({
 				url: '/test/question/request.do',
