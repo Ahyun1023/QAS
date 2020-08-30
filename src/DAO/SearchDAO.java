@@ -125,7 +125,7 @@ public class SearchDAO {
 		try {
 			con = dataFactory.getConnection();
 			//moreViewQuestion
-			String query = "SELECT * FROM question WHERE userId NOT IN(SELECT userId question WHERE userId=\"(삭제된 이용자)\") ORDER BY view DESC LIMIT 3";
+			String query = "SELECT * FROM question WHERE userId NOT IN(\"(삭제된 이용자)\") AND selection = 0 ORDER BY view DESC LIMIT 3";
 			pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -141,7 +141,7 @@ public class SearchDAO {
 				moreViewQuestions.add(vo);
 			}
 			//lessViewQuestion
-			query = "SELECT * FROM question WHERE userId NOT IN(SELECT userId question WHERE userId=\"(삭제된 이용자)\") ORDER BY view ASC LIMIT 3";
+			query = "SELECT * FROM question WHERE userId NOT IN(\"(삭제된 이용자)\") AND selection = 0 ORDER BY view ASC LIMIT 3;";
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -157,7 +157,7 @@ public class SearchDAO {
 				lessViewQuestions.add(vo);
 			}
 			//todayQuestion
-			query = "SELECT * FROM question WHERE created > CURRENT_DATE() AND userId NOT IN(SELECT userId question WHERE userId=\"(삭제된 이용자)\") ORDER BY RAND() LIMIT 3";
+			query = "SELECT * FROM question WHERE created > CURRENT_DATE() AND userId NOT IN(\"(삭제된 이용자)\") AND selection = 0 ORDER BY RAND() LIMIT 3";
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -173,7 +173,7 @@ public class SearchDAO {
 				todayQuestions.add(vo);
 			}
 			//myInterestQuestion
-			query = "SELECT * FROM question WHERE category = ? AND userId NOT IN(SELECT userId question WHERE userId=\"(삭제된 이용자)\") ORDER BY RAND() LIMIT 3";
+			query = "SELECT * FROM question WHERE category = ? AND userId NOT IN(\"(삭제된 이용자)\") AND selection = 0 ORDER BY RAND() LIMIT 3";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, interest);
 			rs = pstmt.executeQuery();
@@ -264,7 +264,7 @@ public class SearchDAO {
 				selectedQuestions.add(vo);
 			}
 			//responseQuestions
-			query = "SELECT * FROM question WHERE request_user=? AND userId NOT IN(SELECT userId question WHERE userId=\"(삭제된 이용자)\") ORDER BY RAND() LIMIT 3";
+			query = "SELECT * FROM question WHERE request_user=? AND userId NOT IN(\"(삭제된 이용자)\") ORDER BY RAND() LIMIT 3";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, searchUserId);
 			rs = pstmt.executeQuery();

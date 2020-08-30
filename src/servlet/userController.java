@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.security.MessageDigest;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -95,47 +96,56 @@ public class userController extends HttpServlet {
 	}
 
 	private void Signout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String id = request.getParameter("signout_id");
-		String pw = request.getParameter("signout_pw");
-		String sessionId = (String) session.getAttribute("sessionId");
-		String sessionPw = (String) session.getAttribute("sessionPw");
-		
-		if(id.equals(sessionId) || pw.equals(sessionPw)) {			
+		try {
+			HttpSession session = request.getSession();
+			String id = request.getParameter("signout_id");
+			String pw = request.getParameter("signout_pw");
+			String sessionId = (String) session.getAttribute("sessionId");
+			String sessionPw = sha256((String) session.getAttribute("sessionPw"));
+			
+			if(id.equals(sessionId) || pw.equals(sessionPw)) {
+				UserVO vo = new UserVO();
+				vo.setId(id);
+				userDAO.deleteUser(vo);
+				
+				session.removeAttribute("isLogin");
+				session.removeAttribute("sessionId");
+				session.removeAttribute("sessionPw");
+				session.removeAttribute("sessionName");
+				session.removeAttribute("sessionEmail");
+				session.removeAttribute("sessionEmailForm");
+				session.removeAttribute("sessionInterests");
+				session.removeAttribute("sessionIntroduce");
+				//session.invalidate();
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	private void Signup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			String id = request.getParameter("signup_id");
+			String pw = sha256(request.getParameter("signup_pw"));
+			String name = request.getParameter("signup_name");
+			String email = request.getParameter("signup_email");
+			String emailForm = request.getParameter("signup_emailForm");
+			String interests = request.getParameter("signup_interests");
+			String introduce = request.getParameter("signup_introduce");
+			
 			UserVO vo = new UserVO();
 			vo.setId(id);
-			userDAO.deleteUser(vo);
-			
-			session.removeAttribute("isLogin");
-			session.removeAttribute("sessionId");
-			session.removeAttribute("sessionPw");
-			session.removeAttribute("sessionName");
-			session.removeAttribute("sessionEmail");
-			session.removeAttribute("sessionEmailForm");
-			session.removeAttribute("sessionInterests");
-			session.removeAttribute("sessionIntroduce");
-			//session.invalidate();
+			vo.setPw(pw);
+			vo.setName(name);
+			vo.setEmail(email);
+			vo.setEmailForm(emailForm);
+			vo.setInterests(interests);
+			vo.setIntroduce(introduce);
+			userDAO.addUser(vo);	
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
-	}
-
-	private void Signup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("signup_id");
-		String pw = request.getParameter("signup_pw");
-		String name = request.getParameter("signup_name");
-		String email = request.getParameter("signup_email");
-		String emailForm = request.getParameter("signup_EmailForm");
-		String interests = request.getParameter("signup_interests");
-		String introduce = request.getParameter("signup_introduce");
-		
-		UserVO vo = new UserVO();
-		vo.setId(id);
-		vo.setPw(pw);
-		vo.setName(name);
-		vo.setEmail(email);
-		vo.setEmailForm(emailForm);
-		vo.setInterests(interests);
-		vo.setIntroduce(introduce);
-		userDAO.addUser(vo);
 	}
 
 	private void Logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -154,74 +164,91 @@ public class userController extends HttpServlet {
 	}
 
 	private void ChangeInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("sessionId");
-		String pw = request.getParameter("Cpw");
-		String name = request.getParameter("Cname");
-		String email = request.getParameter("Cemail");
-		String emailForm = request.getParameter("CemailForm");
-		String interests = request.getParameter("Cinterests");
-		String introduce = request.getParameter("Cintroduce");
-		
-		UserVO vo = new UserVO();
-		vo.setId(id);
-		vo.setPw(pw);
-		vo.setName(name);
-		vo.setEmail(email);
-		vo.setEmailForm(emailForm);
-		vo.setInterests(interests);
-		vo.setIntroduce(introduce);
-		userDAO.updateUser(vo);
-		
-		session.setAttribute("sessionPw", pw);
-		session.setAttribute("sessionName", name);
-		session.setAttribute("sessionEmail", email);
-		session.setAttribute("sessionEmailForm", emailForm);
-		session.setAttribute("sessionInterests", interests);
-		session.setAttribute("sessionIntroduce", introduce);
-
-	}
-
-	@SuppressWarnings({ "unchecked" })
-	private void Login (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String login_id = request.getParameter("id");
-		String login_pw = request.getParameter("pw");
-		
-		UserVO vo = new UserVO();
-		vo.setId(login_id);
-		vo.setPw(login_pw);
-		
-		List<UserVO> result = userDAO.loginCheck(vo);
-
-		if(result.size() != 0) {
-			vo = (UserVO) result.get(0);
-			String id = vo.getId();
-			String pw = vo.getPw();
-			String name = vo.getName();
-			String email = vo.getEmail();
-			String emailForm = vo.getEmailForm();
-			String interests = vo.getInterests();
-			String introduce = vo.getIntroduce();
-			
+		try {
 			HttpSession session = request.getSession();
-			session.setAttribute("isLogin", true);
-			session.setAttribute("sessionId", id);
+			String id = (String)session.getAttribute("sessionId");
+			String pw = sha256(request.getParameter("Cpw"));
+			String name = request.getParameter("Cname");
+			String email = request.getParameter("Cemail");
+			String emailForm = request.getParameter("CemailForm");
+			String interests = request.getParameter("Cinterests");
+			String introduce = request.getParameter("Cintroduce");
+			
+			UserVO vo = new UserVO();
+			vo.setId(id);
+			vo.setPw(pw);
+			vo.setName(name);
+			vo.setEmail(email);
+			vo.setEmailForm(emailForm);
+			vo.setInterests(interests);
+			vo.setIntroduce(introduce);
+			userDAO.updateUser(vo);
+			
 			session.setAttribute("sessionPw", pw);
 			session.setAttribute("sessionName", name);
 			session.setAttribute("sessionEmail", email);
 			session.setAttribute("sessionEmailForm", emailForm);
 			session.setAttribute("sessionInterests", interests);
-			session.setAttribute("sessionIntroduce", introduce);
-			
-			JSONObject obj = new JSONObject();
-			obj.put("result", "success");
-			response.setContentType("application/x-json; charset=UTF-8");
-			response.getWriter().print(obj);
-		} else {
-			JSONObject obj = new JSONObject();
-			obj.put("result", "fail");
-			response.setContentType("application/x-json; charset=UTF-8");
-			response.getWriter().print(obj);
+			session.setAttribute("sessionIntroduce", introduce);	
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
+	}
+
+	@SuppressWarnings({ "unchecked" })
+	private void Login (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			String login_id = request.getParameter("id");
+			String login_pw = sha256(request.getParameter("pw"));
+			
+			UserVO vo = new UserVO();
+			vo.setId(login_id);
+			vo.setPw(login_pw);
+			
+			List<UserVO> result = userDAO.loginCheck(vo);
+			
+			if(result.size() != 0) {
+				vo = (UserVO) result.get(0);
+				String id = vo.getId();
+				String pw = vo.getPw();
+				String name = vo.getName();
+				String email = vo.getEmail();
+				String emailForm = vo.getEmailForm();
+				String interests = vo.getInterests();
+				String introduce = vo.getIntroduce();
+			
+				HttpSession session = request.getSession();
+				session.setAttribute("isLogin", true);
+				session.setAttribute("sessionId", id);
+				session.setAttribute("sessionPw", pw);
+				session.setAttribute("sessionName", name);
+				session.setAttribute("sessionEmail", email);
+				session.setAttribute("sessionEmailForm", emailForm);
+				session.setAttribute("sessionInterests", interests);
+				session.setAttribute("sessionIntroduce", introduce);
+			
+				JSONObject obj = new JSONObject();
+				obj.put("result", "success");
+				response.setContentType("application/x-json; charset=UTF-8");
+				response.getWriter().print(obj);
+			} else {
+				JSONObject obj = new JSONObject();
+				obj.put("result", "fail");
+				response.setContentType("application/x-json; charset=UTF-8");
+				response.getWriter().print(obj);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private String sha256(String msg) throws Exception {
+	    MessageDigest md = MessageDigest.getInstance("SHA-256");
+	    md.update(msg.getBytes());
+	    StringBuilder builder = new StringBuilder();
+	    for (byte b: md.digest()) {
+		      builder.append(String.format("%02x", b));
+		    }
+	    return builder.toString();
 	}
 }

@@ -7,7 +7,7 @@ function signout(){
 			alert('빈 칸이 있습니다.');
 		} else if(pw != pw_check){
 			alert('비밀번호가 다릅니다. 다시 입력해주세요.');
-		}else if($('input:checkbox[id="termsCheck"]').is("checked") == false){
+		}else if($("input:checkbox[id='termsCheck']").is(':checked') == false){
 			alert('안내 사항을 읽고 동의해주세요.');
 		} else {
 			if(confirm('회원탈퇴를 하시겠습니까?') == true){

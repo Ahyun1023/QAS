@@ -13,11 +13,11 @@ function signup(){
 	let emailForm = $('#emailForm').val();
 	let interests = $('#interests').val();
 	let introduce = $('#introduce').val();
-	
-	 if(isIdExist == true){
-		alert('사용할 수 없는 아이디입니다. 다른 아이디를 사용해주세요.');
-	} else if(id == ''){
+
+	if(id == ''){
 		alert('아이디를 입력해주세요.');
+	} else if(isIdExist == true){
+		alert('사용할 수 없는 아이디입니다. 다른 아이디를 사용해주세요.');
 	} else if(id.length < 4 || id.length > 8){
 		alert('아이디는 4~8자의 영문과 숫자만 입력할 수 있습니다.');
 	} else if(pw == '' || pw_check == ''){
@@ -30,13 +30,13 @@ function signup(){
 		alert('비밀번호가 틀렸습니다. 다시 입력해주세요.');
 	} else if(name == ''){
 		alert('이름을 입력해주세요.');
-	}else if(name.length < 2 || name.length > 8 || blank_check.test(name) == true || kor_check.test(name) == true || special_check.test(name)){
+	} else if(name.length < 2 || name.length > 8 || blank_check.test(name) == true || kor_check.test(name) == true || special_check.test(name)){
 		alert('이름은 2~8자의 공백 없이 한글만 입력할 수 있습니다.');
 	} else if(email == ''){
 		alert('이메일을 입력해주세요.');
 	} else if(!kor_check.test(email)){
 		alert('올바른 이메일을 입력해주세요.');
-	}else if($('input:checkbox[id="termsCheck"]').is("checked") == false){
+	} else if($("input:checkbox[id='termsCheck']").is(':checked') == false){
 		alert('약관을 읽고 동의해주세요.');
 	} else{
 	    $(document).ready(()=>{
@@ -75,12 +75,15 @@ function idExistCheck(){
 				success:(isTrue)=>{
 					if(isTrue.isTrue == true){
 						isIdExist = true;
+						$('#isIdExist').css('color', 'red');
 						$('#isIdExist').text('중복된 아이디입니다. 다른 아이디를 사용해주세요.');
 					} else if(isTrue.isTrue == false){
 						if(!kor_check.test($('#id').val())){
+							$('#isIdExist').css('color', 'red');
 							$('#isIdExist').text('사용할 수 없는 아이디입니다.');
 						} else{
 							isIdExist = false;
+							$('#isIdExist').css('color', 'green');
 							$('#isIdExist').text('사용할 수 있는 아이디입니다.');
 						}
 					}
