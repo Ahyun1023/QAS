@@ -4,36 +4,36 @@
 <html>
 <head>
 <link href="./css/signup.css?v=<%=System.currentTimeMillis() %>" rel="stylesheet" type="text/css">
-<script src="./js/common.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
 <script src="./js/signup.js?ver=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <meta charset="UTF-8">
 <title>QAS</title>
 </head>
 <body>
+	<%@ include file="header.jsp" %>
 	<h1>회원가입</h1>
 	<div id="signup_terms">
 		약관들... <!-- 나중에 할래 -->
 	</div>
 	<label id="termsCheckLabel"><input type="checkbox" id="termsCheck"><span id="required">*</span>약관을 모두 확인하였으며, 이에 동의합니다.</label>
 	<form name="signupForm">
+		<p>*표시가 있는 항목은 필수 항목 입니다.</p>
 		<p><span id="required">*</span>아이디</p>
-		
 		<p>4~8자의 영문과 숫자만 입력할 수 있습니다.</p>
-		<p><input type="text" id="id" /></p>
+		<p><input type="text" id="id" maxlength=8 required/></p>
 		<span id="isIdExist"></span>
 		<p><span id="required">*</span>비밀번호</p>
 		<p>8~16자의 영문과 숫자만 입력할 수 있습니다.</p>
-		<p><input type="password" id="pw" /></p>
+		<p><input type="password" id="pw" maxlength=16 required/></p>
 		<p><span id="required">*</span>비밀번호 확인</p>
-		<p><input type="password" id="pw_check" /></p>
+		<p><input type="password" id="pw_check" maxlength=16 required/></p>
 		<span id="isPwTrue"></span>
 		<p><span id="required">*</span>이름</p>
 		<p>2~8자의 한글만 입력할 수 있습니다.</p>
-		<p><input type="text" id="name" /></p>
+		<p><input type="text" id="name" maxlength=8 required/></p>
 		<p><span id="required">*</span>이메일</p>
 		<p>
-			<input type="text" id="email" />@
+			<input type="text" id="email" required/>@
 			<select name="emailForm" id="emailForm">
 				<option value="">--선택--</option>
 				<option value="gmail.com">gmail.com</option>

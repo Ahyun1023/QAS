@@ -1,4 +1,5 @@
 window.onload = ()=>{
+	headerButton();
 	let questionId = $('#questionId').val();
 	if(questionId == undefined){
 		location.href = "/test/noneQuestion.jsp";

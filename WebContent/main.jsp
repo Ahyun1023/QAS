@@ -9,35 +9,16 @@
 <head>
 <link href="./css/main.css?v=<%=System.currentTimeMillis() %>" rel="stylesheet" type="text/css">
 <script src="./js/main.js?v=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <meta charset="UTF-8">
 <title>QAS</title>
 </head>
 <body>
-	<input type="hidden" id="isLogin" value=${isLogin } />
-	<input type="hidden" id="userId" value=${sessionId } />
-	<input type="button" onclick="locMyProfile()" value="내 프로필" />
-	<input type="button" onclick="locQuestion()" value="질문 올리기" />
-	<input type="button" onclick="locLogin()" value="로그인" id="loginButton">
-	<input type="button" onclick="logout()" value="로그아웃" id="logoutButton">
-	<input type="button" onclick="locSignup()" value="회원가입" id="signupButton">
-	<form action="/test/search/find.do" method="get">
-		<select name="category" id="category">
-			<option value="">전부</option>
-			<option value="교육">교육</option>
-			<option value="게임">게임</option>
-			<option value="건강">건강</option>
-			<option value="여행">여행</option>
-			<option value="쇼핑">쇼핑</option>
-			<option value="생활">생활</option>
-		</select>
-		<input type="text" placeholder="검색" id="word" name="word" />
-		<input type="submit" value="검색하기" />
-	</form>
+	<%@ include file="header.jsp" %>
 	<h1>오늘의 질문</h1>
 	<c:choose>
 		<c:when test="${todayQ.size() == 0  }">
 			<p>아직 작성된 질문이 없습니다.</p>
+			<p><a href="/test/write_question.jsp">먼저 오늘의 질문을 작성해주세요!</a></p>
 		</c:when>
 		<c:otherwise>
 				<c:forEach var="todayQ" items="${todayQ }">
@@ -86,6 +67,7 @@
 			<c:choose>
 				<c:when test="${sessionInterests == '' }">
 					<p>아직 관심 분야가 등록되지 않았습니다.</p>
+					<p><a href="/test/write_question.jsp">당신의 관심 분야에 대한 질문을 작성해주세요!</a></p>
 				</c:when>
 				<c:otherwise>
 					<p>아직 작성된 질문이 없습니다.</p>

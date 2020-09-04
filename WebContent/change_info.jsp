@@ -11,11 +11,11 @@
 <head>
 <meta charset="UTF-8">
 <script src="js/change_info.js?v=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
-<script src="js/common.js?v=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <title>QAS</title>
 </head>
 <body>
+	<%@ include file="header.jsp" %>
 	<c:if test="${isLogin != true }">
 		<jsp:forward page="login.jsp"/>
 	</c:if>

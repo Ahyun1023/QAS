@@ -49,6 +49,7 @@ function contentCount(){
 }
 
 window.onload = ()=>{
+	headerButton();
 	loginCheck();
 	$('#title').keyup(()=>{
 		titleCount();

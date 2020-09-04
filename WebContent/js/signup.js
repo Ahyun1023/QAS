@@ -94,6 +94,8 @@ function idExistCheck(){
 }
 
 window.onload = ()=>{
+	headerButton();
+	alreadyLogin();
 	idExistCheck();
 	pwCheck();
 }

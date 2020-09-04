@@ -119,10 +119,14 @@ public class QuestionController extends HttpServlet {
 	}
 
 	private void ReadQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		int id = Integer.parseInt(request.getParameter("qid"));
+		String sessionUserId = (String)session.getAttribute("sessionId");
+		
 		QuestionVO Qvo = new QuestionVO(id);
 		AnswerVO Avo = new AnswerVO(id);
 		Qvo.setId(id);
+		Qvo.setUserId(sessionUserId);
 		Avo.setId(id);
 		List<QuestionVO> question = questionDAO.readQuestion(Qvo);
 		List<AnswerVO> answer = answerDAO.readAnswer(Avo);

@@ -1,10 +1,6 @@
-<%@page import="java.sql.Date"%>
-<%@page import="VO.SearchVO"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+ 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix= "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
@@ -13,9 +9,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="../js/search.js?v=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
 <title>QAS</title>
 </head>
 <body>
+	<c:set var="otherJsp" value="true" />
+	<%@ include file="header.jsp" %>
 	<h1>검색 결과</h1>
 	<table border="1">
 		<tr align="center">

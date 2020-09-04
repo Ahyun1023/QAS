@@ -59,5 +59,6 @@ function goBack(){
 }
 
 window.onload = ()=>{
+	headerButton()
 	loginCheck();
 }

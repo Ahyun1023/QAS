@@ -5,13 +5,12 @@
 <html>
 <head>
 <script src="js/request_question.js?v=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
-<script src="js/common.js?v=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <meta charset="UTF-8">
 <title>QAS</title>
 </head>
 <body>
-	<input type="hidden" id=isLogin value="${isLogin }" />
+	<%@ include file="header.jsp" %>
 	<h1>질문 작성하기</h1>
 	<form name="questionForm">
 		<p>답변을 요청할 유저: <span id="requestId">${param.requestId }</span></p>

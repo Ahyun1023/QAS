@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix= "fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%
-	request.setCharacterEncoding("utf-8");
-%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +11,8 @@
 <title>QAS</title>
 </head>
 <body>
-	<input type="hidden" id="isLogin" value=${isLogin } />
+	<c:set var="otherJsp" value="true" />
+	<%@ include file="header.jsp" %>
 	<c:forEach var="question" items="${question }">
 		<c:set var="isSelect" value="${question.selection }"/>
 		<c:set var="select_userId" value="${question.select_userId }"/>
@@ -31,7 +28,7 @@
 		<p>
 			게시글 아이디: ${question.id } |
 			분류: ${question.category } |
-			질문자: ${question.userId } |
+			질문자: <a href="/test/profile?userId=${question.userId }">${question.userId }</a> |
 			조회수: ${question.view } |
 			작성일: ${question.created }
 			<c:if test="${qUserid == sessionId  && isSelect != 1}">
@@ -121,7 +118,7 @@
 							<input type="button" value="삭제하기" onclick="deleteAnswer(${answer.id})" />
 						</c:if>
 					</p>
-					<p id="AUserid">${answer.userId }님의 답변</p>
+					<p id="AUserid"><a href="/test/profile?userId=${answer.userId }">${answer.userId }</a>님의 답변</p>
 					<p id="Acontent${answer.id }">${answer.content }</p>
 					<p>작성 날짜: ${answer.created }</p>
 					<hr />

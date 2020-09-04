@@ -5,9 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="../js/userInfoList.js?v=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
 <title>QAS</title>
 </head>
 <body>
+	<c:set var="otherJsp" value="true" />
+	<%@ include file="header.jsp" %>
 	<table border="1">
 		<tr align="center">
 			<td><b>질문글 아이디</b></td>

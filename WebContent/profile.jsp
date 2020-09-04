@@ -14,6 +14,10 @@
 <script src="js/profile.js?v=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
 </head>
 <body>
+	<%@ include file="header.jsp" %>
+	<input type="hidden" id="isLogin" value=${isLogin } />
+	<input type="hidden" id="userId" value=${sessionId } />
+	
 	<c:forEach var="userInfo" items="${userInfo }">
 		<c:set var="thisUserId" value="${userInfo.id}"/>
 		<input type="hidden" id="thisUserId" value="${$userInfo.id }" />
@@ -136,7 +140,7 @@
 	<c:if test="${param.userId == sessionId }">
 		<h1>나에게 온 질문</h1>
 		<c:choose>
-			<c:when test="${selectedQuestions.size() == 0 }">
+			<c:when test="${responseQuestions.size() == 0 }">
 				<p>나에게 온 질문이 없습니다.</p>
 			</c:when>
 			<c:otherwise>
@@ -150,18 +154,17 @@
 					<td><b>작성 날짜</b></td>
 				</tr>
 				<c:forEach var="responseQ" items="${responseQuestions }">
-						<tr align="center">
-							<td>${responseQ.id }</td>
-							<td>Q.<a href="/test/question/read.do?qid=${responseQ.id }">${responseQ.title }</a></td>
-							<td>${responseQ.category }</td>
-							<td>${responseQ.view }</td>
-							<td>${responseQ.created }</td>
-						</tr>
+					<tr align="center">
+						<td>${responseQ.id }</td>
+						<td>Q.<a href="/test/question/read.do?qid=${responseQ.id }">${responseQ.title }</a></td>
+						<td>${responseQ.category }</td>
+						<td>${responseQ.view }</td>
+						<td>${responseQ.created }</td>
+					</tr>
 				</c:forEach>
 			</table>
-		</c:otherwise>
-	</c:choose>
+			</c:otherwise>
+		</c:choose>
 	</c:if>
-
 </body>
 </html>

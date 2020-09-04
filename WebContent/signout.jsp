@@ -5,12 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <link href="./css/signout.css?v=<%=System.currentTimeMillis() %>" rel="stylesheet" type="text/css">
-<script src="js/signout.js?v=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
-<script src="js/common.js?v=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
+<script src="./js/signout.js?v=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <title>QAS</title>
 </head>
 <body>
+	<%@ include file="header.jsp" %>
 	<input type="hidden" id="isLogin" value=${isLogin } />
 	<h1>회원 탈퇴</h1>
 	<div id="signout_terms">
@@ -24,9 +24,9 @@
 	<label id="termsCheckLabel"><input type="checkbox" id="termsCheck">안내 사항을 모두 확인하였으며, 이에 동의합니다.</label>
 
 	<form name="SignoutForm">
-		아이디: <input type="text" id="id" /><br />
-		비밀번호: <input type="password" id="pw" /><br />
-		비밀번호 확인: <input type="password" id="pw_check" /><br />
+		아이디: <input type="text" id="id" maxlength=8/><br />
+		비밀번호: <input type="password" id="pw" maxlength=16/><br />
+		비밀번호 확인: <input type="password" id="pw_check" maxlength=16/><br />
 		<input type="button" value="회원 탈퇴" onclick="signout()" />
 		<input type="button" value="취소" onclick="locMain()"/>
 	</form>

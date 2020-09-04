@@ -1,0 +1,97 @@
+#header{
+	background-color: white;
+}
+
+.logo img{
+	width: auto;
+	height: auto;
+	float:left;
+}
+.userInfo{
+	margin-top: 0.7%;
+	padding: 1px 30px;
+	position: absolute;
+	margin-left: 78%;
+	float: left;
+	border: 2px dotted #7FDCE5;
+	border-radius: 8%;
+}
+
+select:focus, input:focus{
+	outline: none;
+}
+
+.search{
+	margin-left: 33%;
+}
+
+.GoProfile{
+	text-decoration: none;
+	color: gray;
+}
+
+.GoProfile:hover{
+	text-decoration: underline;
+}
+
+.headerButton{
+	border: none;
+	background: white;
+	cursor: pointer;
+	margin-left: 11.5%;
+	border-bottom: 3px solid white;
+}
+
+.headerButton:hover{
+	border-bottom: 3px solid #7FDCE5;
+}
+
+#word{
+	padding: 1em;
+	border: none;
+	width: 30%;
+	height: 15px;
+	line-height: 15px;
+	border-bottom: 3px solid #7FDCE5;
+}
+
+.searchButton{
+	background: #99E3FF;
+	border: none;
+	width: 100px;
+	height: 50px;
+	cursor: pointer;
+	border-radius: 5px;
+	
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	position: relative;
+	transition: background-color .6s ease;
+	overflow: hidden;
+}
+
+.searchButton:hover{
+	background-color: #6BBDDC;
+}
+
+#HeaderCategory{
+	width: 100px;
+	padding: .9em .6em;
+	background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 90% 30%;
+	border: 2px solid #7FDCE5; 
+	border-radius: 0px;
+	-webkit-appearance: none;
+	-moz-appearance: none; 
+	appearance: none;
+}
+
+.headerBar input{
+	padding: 0.8%;
+	margin-right: auto;
+	font-weight: bold;
+	font-size: large;
+}
+
+.headerHr{
+	border: 1px solid #EFEFEF;
+}

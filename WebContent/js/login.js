@@ -20,3 +20,8 @@ function login(){
 		})
 	}
 }
+
+window.onload = ()=>{
+	headerButton();
+	alreadyLogin();
+}

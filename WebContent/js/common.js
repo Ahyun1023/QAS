@@ -18,3 +18,10 @@ function pwCheck(){
 		}
 	})
 }
+
+function alreadyLogin(){
+	if($('#isLogin').val() == "true"){
+		alert('이미 로그인되어 있습니다.');
+		location.href='/test/main';
+	}
+}

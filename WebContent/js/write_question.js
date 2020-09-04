@@ -48,11 +48,11 @@ function contentCount(){
 
 window.onload = ()=>{
 	loginCheck();
+	headerButton();
 	$('#title').keyup(()=>{
 		titleCount();
 	})
 	$('#content').keyup(()=>{
 		contentCount();
 	})
-
 }

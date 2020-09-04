@@ -38,4 +38,5 @@ function locMain(){
 
 window.onload = ()=>{
 	loginCheck();
+	headerButton();
 }

@@ -19,5 +19,6 @@ function requestQ(profileUserId){
 
 
 window.onload = ()=>{
+	headerButton();
 	isProfile();
 }
