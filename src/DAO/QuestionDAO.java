@@ -104,19 +104,17 @@ public class QuestionDAO {
 		try {
 			con = dataFactory.getConnection();
 			int qid = vo.getId();
+			String thisUserId = vo.getUserId();
+			String quesUserId = "";
 			
-			String query = "UPDATE question SET view = view + 1 WHERE id = ?";
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, qid);
-			pstmt.execute();
-			
-			query = "SELECT * FROM question WHERE id = ?";
+			String query = "SELECT * FROM question WHERE id = ?";
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, qid);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				int id = rs.getInt("id");
 				String userId = rs.getString("userId");
+				quesUserId = userId;
 				String category = rs.getString("category");
 				String title = rs.getString("title");
 				int view = rs.getInt("view");
@@ -138,6 +136,14 @@ public class QuestionDAO {
 				vo.setRequest_user(request_user);
 				question.add(vo);
 			}
+			
+			if(!quesUserId.equals(thisUserId)) {
+				query = "UPDATE question SET view = view + 1 WHERE id = ?";
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, qid);
+				pstmt.execute();
+			}
+			
 			rs.close();
 			pstmt.close();
 			con.close();
