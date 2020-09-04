@@ -5,7 +5,7 @@
 	request.setCharacterEncoding("utf-8");
 	String interests = (String)session.getAttribute("sessionInterests");
 	String emailForm = (String)session.getAttribute("sessionEmailForm");
-%>
+%>ㄴ
 <!DOCTYPE html>
 <html>
 <head>
