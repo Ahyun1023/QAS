@@ -115,6 +115,7 @@ public class userController extends HttpServlet {
 				session.removeAttribute("sessionEmail");
 				session.removeAttribute("sessionEmailForm");
 				session.removeAttribute("sessionInterests");
+				session.removeAttribute("sessionGrade");
 				session.removeAttribute("sessionIntroduce");
 				//session.invalidate();
 			}
@@ -157,6 +158,7 @@ public class userController extends HttpServlet {
 		session.removeAttribute("sessionEmail");
 		session.removeAttribute("sessionEmailForm");
 		session.removeAttribute("sessionInterests");
+		session.removeAttribute("sessionGrade");
 		session.removeAttribute("sessionIntroduce");
 		
 		//session.invalidate();
@@ -215,6 +217,7 @@ public class userController extends HttpServlet {
 				String email = vo.getEmail();
 				String emailForm = vo.getEmailForm();
 				String interests = vo.getInterests();
+				int grade = vo.getGrade();
 				String introduce = vo.getIntroduce();
 			
 				HttpSession session = request.getSession();
@@ -225,6 +228,7 @@ public class userController extends HttpServlet {
 				session.setAttribute("sessionEmail", email);
 				session.setAttribute("sessionEmailForm", emailForm);
 				session.setAttribute("sessionInterests", interests);
+				session.setAttribute("sessionGrade", grade);
 				session.setAttribute("sessionIntroduce", introduce);
 			
 				JSONObject obj = new JSONObject();

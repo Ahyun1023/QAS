@@ -85,7 +85,7 @@ public class UserDAO {
 		String userid = vo.getId();
 		try {
 			con = dataFactory.getConnection();
-			String query = "SELECT id, name, interests, grade, introduce ,point FROM users WHERE id=?";
+			String query = "SELECT id, name, interests, grade, introduce, point FROM users WHERE id=?";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, userid);
 			ResultSet rs = pstmt.executeQuery();
@@ -156,6 +156,7 @@ public class UserDAO {
 				String email = rs.getString("email");
 				String emailForm = rs.getString("emailForm");
 				String interests = rs.getString("interests");
+				int grade = rs.getInt("grade");
 				String introduce = rs.getString("introduce");
 				
 				vo.setId(id);
@@ -164,6 +165,7 @@ public class UserDAO {
 				vo.setEmail(email);
 				vo.setEmailForm(emailForm);
 				vo.setInterests(interests);
+				vo.setGrade(grade);
 				vo.setIntroduce(introduce);
 				list.add(vo);
 			}
