@@ -1,0 +1,33 @@
+.loginButton{
+	width: 350px;
+	height: 50px;
+	background-color: #3EBBEE;
+	border: none;
+	font-weight: bolder;
+	color: white;
+	cursor: pointer;
+}
+
+.loginButton:hover{
+	background-color: #469BBD;
+}
+
+.idInput, .pwInput{
+	width: 350px;
+	height: 30px;
+}
+
+.loginForm{
+	text-align: center;
+	margin-top: 7%;
+	border: 1px solid #CACACA;
+}
+
+.goSignUp{
+	text-decoration: none;
+	color: #3EBBEE;
+}
+
+.goSignUp:hover{
+	text-decoration: underline;
+}

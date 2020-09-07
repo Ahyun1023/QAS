@@ -1,0 +1,64 @@
+h1{
+	margin-left: 20%;	
+}
+
+.Qtitle{
+	font-size: 30px;
+	font-weight: bolder;
+	color: #8DE2EC;
+}
+
+.title{
+	width: 50em;
+	height: 30px;
+	border: 3px solid #8DE2EC;
+}
+
+.counting{
+	color: gray;
+	margin-left: 30%;
+}
+
+.content{
+	width: 50em;
+	height: 30em;
+	resize: none;
+	border: 3px solid #8DE2EC;
+}
+
+.title:focus, .content:focus{
+	outline: none;
+}
+
+.questionForm{
+	text-align: center;
+}
+
+.category{
+	width: 100px;
+	padding: .9em .6em;
+	background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 90% 30%;
+	border: 2px solid #7FDCE5; 
+	border-radius: 0px;
+	-webkit-appearance: none;
+	-moz-appearance: none; 
+	appearance: none;
+}
+
+.saveQ{
+	width: 350px;
+	height: 50px;
+	background-color: #3EBBEE;
+	border: none;
+	font-weight: bolder;
+	color: white;
+	cursor: pointer;
+}
+
+.saveQ:hover{
+	background-color: #469BBD;
+}
+
+.requestId{
+	color: #FCA107;
+}

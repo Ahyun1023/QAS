@@ -1,0 +1,74 @@
+.changeForm{
+	text-align: center;
+}
+
+.required{
+	color: red;
+}
+
+.notice{
+	color: gray;
+	font-weight: bold;
+	font-size: small;
+}
+
+input[type='text']:not(.emailInput), input[type='password']{
+	width: 350px;
+	height: 30px;
+}
+
+.emailInput{
+	width: 150px;
+	height: 30px;
+}
+
+.changeTitle{
+	font-weight: bold;
+}
+
+.changehint{
+	font-size: small;
+	color: gray;
+}
+
+.submitButton{
+	width: 350px;
+	height: 50px;
+	background-color: #3EBBEE;
+	border: none;
+	font-weight: bolder;
+	color: white;
+	cursor: pointer;
+}
+
+.submitButton:hover{
+	background-color: #469BBD;
+}
+
+.backButton{
+	width: 350px;
+	height: 50px;
+	background-color: #FB5F4A;
+	border: none;
+	font-weight: bolder;
+	color: white;
+	cursor: pointer;
+}
+
+.backButton:hover{
+	background-color: #CC4C3B;
+}
+
+.goMain{
+	text-decoration: none;
+	color: #3EBBEE;
+}
+
+.goMain:hover{
+	text-decoration: underline;
+}
+
+.select{
+	width: 150px;
+	height: 35px;
+}

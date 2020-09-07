@@ -1,0 +1,90 @@
+.topProfile{
+	width: 50%;
+	height: auto;
+	border: 3px outset #D5F3FF;
+	text-align: center;
+	padding: 1%;
+	margin-left: 24%;
+}
+
+.noneProfile{
+	color: #FF6541;
+}
+
+.profileHr{
+	border: 2px solid #D0DFE5;
+}
+
+.profileTitle{
+	font-size: 150%;
+	font-weight:900;
+	color: #1ECFDB;
+	margin-left: 18%;
+}
+
+.profileTables{
+	margin-left: 18%;
+}
+
+.viewMore{
+	margin-left: 76%;
+}
+.viewMore a{
+	text-decoration: none;
+	color: #999999;
+}
+.viewMore a:hover{
+	text-decoration: underline;
+}
+
+table{
+	width: 80%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+}
+
+th, td{
+	border-bottom: 1px solid #D8D8D8;
+    padding: 10px;
+}
+
+td a{
+	text-decoration: none;
+	color: black;
+	cursor: pointer;
+}
+
+td a:hover{
+	text-decoration: underline;
+}
+
+.noneQuestions{
+	margin-left: 33%;
+}
+
+.change_info{
+	text-decoration: none;
+	color: #4BB7E3;
+}
+
+.signout{
+	text-decoration: none;
+	color: #CC4C3B;
+}
+
+.change_info:hover, .signout:hover{
+	text-decoration: underline;
+}
+
+.requestQuestion{
+	width: 250px;
+	height: 50px;
+	background-color: #3EBBEE;
+	border: none;
+	font-weight: bolder;
+	color: white;
+}
+
+.requestQuestion:hover{
+	background-color: #469BBD;
+}
