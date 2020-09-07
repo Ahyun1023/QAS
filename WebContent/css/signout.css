@@ -3,6 +3,7 @@
 	height: 300px;
 	padding: 10px;
 	background-color: #DFDFDF;
+	margin-left: 24%;
 }
 
 #signout_terms span{
@@ -17,4 +18,49 @@
 	-khtml-user-select: none;
 	-webkit-user-select: none;
 	user-select: none;
+}
+
+.signout{
+	text-align: center;
+}
+
+.required{
+	color: red;
+}
+
+.signoutTitle{
+	font-weight: bold;
+}
+
+.signoutForm input[type='text'], .signoutForm input[type='password']{
+	width: 350px;
+	height: 30px;
+}
+
+.submitButton{
+	width: 350px;
+	height: 50px;
+	background-color: #FB5F4A;
+	border: none;
+	font-weight: bolder;
+	color: white;
+	cursor: pointer;
+}
+
+.submitButton:hover{
+	background-color: #CC4C3B;
+}
+
+.backButton{
+	width: 350px;
+	height: 50px;
+	background-color: #3EBBEE;
+	border: none;
+	font-weight: bolder;
+	color: white;
+	cursor: pointer;
+}
+
+.backButton:hover{
+	background-color: #469BBD;
 }

@@ -56,22 +56,22 @@ select:focus, input:focus{
 }
 
 .searchButton{
-	background: #99E3FF;
+	background: #3EBBEE;
+	color: white;
+	font-weight: bolder;
 	border: none;
 	width: 100px;
 	height: 50px;
 	cursor: pointer;
-	border-radius: 5px;
-	
+	border-radius: 2px;
 	letter-spacing: .08em;
-	text-transform: uppercase;
 	position: relative;
 	transition: background-color .6s ease;
 	overflow: hidden;
 }
 
 .searchButton:hover{
-	background-color: #6BBDDC;
+	background-color: #469BBD;
 }
 
 #HeaderCategory{
