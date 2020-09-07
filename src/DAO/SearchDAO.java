@@ -30,7 +30,7 @@ public class SearchDAO {
 	
 	public List<SearchVO> findInfoList(SearchVO vo, String action){
 		List<SearchVO> infoList = new ArrayList<SearchVO>();
-		String SearchuserId = vo.getUserId();
+		String SearchUserId = vo.getUserId();
 		String query = "";
 		
 		if(action.equals("/questionList.do")) {
@@ -46,9 +46,9 @@ public class SearchDAO {
 		try {
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, SearchuserId);
+			pstmt.setString(1, SearchUserId);
 			if(action.equals("/selectedList.do")) {
-				pstmt.setString(2, SearchuserId);
+				pstmt.setString(2, SearchUserId);
 			}
 			ResultSet rs = pstmt.executeQuery();
 			

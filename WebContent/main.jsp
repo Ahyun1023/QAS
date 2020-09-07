@@ -7,8 +7,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="./css/main.css?v=<%=System.currentTimeMillis() %>" rel="stylesheet" type="text/css">
-<script src="./js/main.js?v=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
+<link href="css/main.css?v=<%=System.currentTimeMillis() %>" rel="stylesheet" type="text/css">
+<script src="js/main.js?v=<%=System.currentTimeMillis() %>" type="text/javascript"></script>
 <meta charset="UTF-8">
 <title>QAS</title>
 </head>
@@ -23,7 +23,7 @@
 		<c:otherwise>
 				<c:forEach var="todayQ" items="${todayQ }">
 				<p><a href="/test/profile?userId=${todayQ.userId }">${todayQ.userId}</a>님의 질문</p>
-				<p><a href="/test/question/read.do?qid=${todayQ.id }">Q. ${todayQ.title}</a></p>
+				<p id='Qtitle'><a href="/test/question/read.do?qid=${todayQ.id }">Q. ${todayQ.title}</a></p>
 				<p id="Qcontent">${todayQ.content}</p>
 			</c:forEach>
 		</c:otherwise>
@@ -37,7 +37,7 @@
 		<c:otherwise>
 				<c:forEach var="moreViewQ" items="${moreViewQ }">
 				<p><a href="/test/profile?userId=${moreViewQ.userId }">${moreViewQ.userId}</a>님의 질문</p>
-				<p><a href="/test/question/read.do?qid=${moreViewQ.id }">Q. ${moreViewQ.title}</a></p>
+				<p id='Qtitle'><a href="/test/question/read.do?qid=${moreViewQ.id }">Q. ${moreViewQ.title}</a></p>
 				<p id="Qcontent" style="text-overflow: ellipsis; overflow:hidden;">${moreViewQ.content}</p>
 			</c:forEach>
 		</c:otherwise>
@@ -51,7 +51,7 @@
 		<c:otherwise>
 				<c:forEach var="lessViewQ" items="${lessViewQ }">
 				<p><a href="/test/profile?userId=${lessViewQ.userId }">${lessViewQ.userId}</a>님의 질문</p>
-				<p><a href="/test/question/read.do?qid=${lessViewQ.id }">Q. ${lessViewQ.title}</a></p>
+				<p id='Qtitle'><a href="/test/question/read.do?qid=${lessViewQ.id }">Q. ${lessViewQ.title}</a></p>
 				<p id="Qcontent">${lessViewQ.content}</p>
 			</c:forEach>
 		</c:otherwise>
@@ -77,7 +77,7 @@
 		<c:otherwise>
 				<c:forEach var="myInterestQ" items="${myInterestQ }">
 				<p><a href="/test/profile?userId=${myInterestQ.userId }">${myInterestQ.userId}</a>님의 질문</p>
-				<p><a href="/test/question/read.do?qid=${myInterestQ.id }">Q. ${myInterestQ.title}</a></p>
+				<p id='Qtitle'><a href="/test/question/read.do?qid=${myInterestQ.id }">Q. ${myInterestQ.title}</a></p>
 				<p id="Qcontent">${myInterestQ.content}</p>
 			</c:forEach>
 		</c:otherwise>

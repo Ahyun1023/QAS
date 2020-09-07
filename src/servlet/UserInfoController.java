@@ -70,6 +70,7 @@ public class UserInfoController extends HttpServlet {
 		
 		List<SearchVO> infoList = searchDAO.findInfoList(vo, action);
 		
+		request.setAttribute("action", action);
 		request.setAttribute("infoList", infoList);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/userInfoList.jsp");
