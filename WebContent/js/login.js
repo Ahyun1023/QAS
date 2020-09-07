@@ -13,7 +13,7 @@ function login(){
 					if(result.result == 'success'){
 						location.href = '/test/main';
 					} else{
-						alert('로그인 실패. 아이디와 비밀번호를 다시 확인해주세요.');
+						alert('아이디와 비밀번호를 다시 확인해주세요.');
 					}
 				}
 			})
