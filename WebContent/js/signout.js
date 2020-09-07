@@ -20,9 +20,13 @@ function signout(){
             			signout_id: id,
             			signout_pw: pw
             		},
-            		success:()=>{
-						alert('회원탈퇴 성공');
-						location.href = "./main";	
+            		success:(result)=>{
+						if(result.result != "fail"){
+							alert('회원탈퇴 성공');
+							location.href = "./main";		
+						}else{
+							alert('아이디와 비밀번호를 다시 확인해주세요.');
+						}
             		}
         		})
     		})	

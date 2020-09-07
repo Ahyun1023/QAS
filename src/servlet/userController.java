@@ -95,15 +95,16 @@ public class userController extends HttpServlet {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	private void Signout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			HttpSession session = request.getSession();
 			String id = request.getParameter("signout_id");
-			String pw = request.getParameter("signout_pw");
+			String pw = sha256(request.getParameter("signout_pw"));
 			String sessionId = (String) session.getAttribute("sessionId");
-			String sessionPw = sha256((String) session.getAttribute("sessionPw"));
+			String sessionPw = (String) session.getAttribute("sessionPw");
 			
-			if(id.equals(sessionId) || pw.equals(sessionPw)) {
+			if(id.equals(sessionId) && pw.equals(sessionPw)) {
 				UserVO vo = new UserVO();
 				vo.setId(id);
 				userDAO.deleteUser(vo);
@@ -118,6 +119,11 @@ public class userController extends HttpServlet {
 				session.removeAttribute("sessionGrade");
 				session.removeAttribute("sessionIntroduce");
 				//session.invalidate();
+			} else {
+				JSONObject obj = new JSONObject();
+				obj.put("result", "fail");
+				response.setContentType("application/x-json; charset=UTF-8");
+				response.getWriter().print(obj);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -219,7 +225,7 @@ public class userController extends HttpServlet {
 				String interests = vo.getInterests();
 				int grade = vo.getGrade();
 				String introduce = vo.getIntroduce();
-			
+				
 				HttpSession session = request.getSession();
 				session.setAttribute("isLogin", true);
 				session.setAttribute("sessionId", id);
