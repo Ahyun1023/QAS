@@ -1,5 +1,41 @@
+.requestUser{
+	font-weight: bolder;
+	font-size: large;
+	margin-left: 15%;
+	color: #FFC536;
+}
+
+.counting{
+	color: gray;
+	font-size: small;
+}
+
+.updateButton, .deleteButton{
+	border: none;
+	width: 70px;
+	height: 25px;
+	cursor: pointer;
+	color: white;
+}
+
+.updateButton{
+	background-color: #3EBBEE;
+}
+
+.updateButton:hover{
+	background-color: #469BBD;
+}
+
+.deleteButton{
+	background-color: #FB5F4A;
+}
+
+.deleteButton:hover{
+	background-color: #CC4C3B;
+}
+
 #selectedMark{
-	color:green
+	color: #2394DE;
 }
 
 #selected{
@@ -20,4 +56,162 @@
 #deleted_warning{
 	color:gray;
 	font-size:small;
+}
+
+.Qtitle{
+	margin-left: 15%;
+	color: #8DE2EC;
+}
+
+.QInfo{
+	margin-left: 15%;
+}
+
+.QInfo a{
+	text-decoration: none;
+	color: black;
+}
+
+.QInfo a:hover{
+	text-decoration: underline;
+}
+
+.QInfo input[type='button']{
+	width: 80px;
+	height: 30px;
+	border: none;
+}
+
+.questionHr{
+	border: 2px solid #5B9EFF;
+}
+
+.Qcontent{
+	width: 1300px;
+	height: auto;
+	margin-left: 15%;
+	text-align:center;
+}
+
+.warning{
+	color: red;
+	text-align: center;
+}
+
+textarea:focus{
+	outline: none;
+}
+
+#Aupdate_Title, #Aupdate_Content, #Qupdate_Title, #Qupdate_Content{
+	border: 2px solid #7FDCE5;
+}
+
+#Aupdate_Content{
+	resize: none;
+	width: 99%;
+	height: auto;
+}
+
+#Qupdate_Title{
+	width: 50em;
+	height: 30px;
+}
+
+#Qupdate_Content{
+	resize: none;
+	width: 50em;
+	height: 30em;
+}
+
+.myAnswerDiv{
+	width: 50em;
+	margin-left: 30%;
+}
+
+.Atitle{
+	font-size: 30px;
+	font-weight: bolder;
+	color: #8DE2EC;
+}
+
+.answerTitle, .answerContent{
+	border: 2px solid #7FDCE5;
+}
+
+.answerTitle{
+	width: 50.4em;
+	height: 30px;
+}
+
+.answerContent{
+	resize: none;
+	width: 53.3em;
+	height: 10em;
+}
+
+.answerButton{
+	border: none;
+	color: white;
+	background-color: #3BACDA;
+	width: 350px;
+	height: 50px;
+	cursor: pointer;
+	margin-left: 46%;
+}
+
+.answerButton:hover, .selectButton:hover{
+	background-color: #469BBD;
+}
+
+.answerCount{
+	margin-left: 15%;
+}
+
+.answersTitle{
+	font-size: 25px;
+	font-weight: bolder;
+	color: #8DE2EC;
+	margin-left: 30%;
+}
+
+#AUserid{
+	margin-left: 30%;
+}
+
+.Acontent{
+	margin-left: 30%;
+	width: 40%;
+	height: auto;
+	border: 1px solid #7FDCE5;
+}
+
+.Acreated{
+	font-size: small;
+	color: gray;
+	margin-left: 30%;
+}
+
+.QInfo a, #AUserid a{
+	text-decoration: none;
+	color: black;
+}
+
+.QInfo a:hover, #AUserid a:hover{
+	text-decoration: underline;
+}
+
+.selectButton{
+	border: none;
+	background-color: #3BACDA;
+	color: white;
+	width: 100px;
+	height: 33px;
+	cursor: pointer;
+}
+
+.selectedTitle{
+	font-size: 25px;
+	font-weight: bolder;
+	margin-left: 30%;
+	color: #2394DE;
 }
