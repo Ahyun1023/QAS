@@ -17,7 +17,9 @@
 	<c:set var="otherJsp" value="true" />
 	<%@ include file="header.jsp" %>
 	<span class='titles'>검색 결과</span>
-	<span class='listCount'>${searchList.size() }개</span>
+	<c:if test="${searchList.size() != null }">
+		<span class='listCount'>${searchList.size() }개</span>
+	</c:if>
 	<div class='tables'>
 		<table>
 			<tr align="center">
@@ -31,8 +33,8 @@
 	
 			<c:if test="${searchList == null }">
 					<tr>
-					<td colspan="5">
-						<b>검색 결과가 없습니다.</b>
+					<td colspan="7">
+						<b class='warning'>검색 결과가 없습니다.</b>
 					</td>
 				</tr>
 			</c:if>
