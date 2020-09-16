@@ -29,7 +29,7 @@
 					<p class='noneProfile'>관심분야가 없습니다.</p>
 				</c:when>
 				<c:otherwise>
-					<p>관심 분야: ${userInfo.interests }</p>
+					<p class='isProfile'>관심 분야: ${userInfo.interests }</p>
 				</c:otherwise>
 			</c:choose>
 			<c:choose>
@@ -37,7 +37,7 @@
 					<p class='noneProfile'>소개글이 없습니다.</p>
 				</c:when>
 				<c:otherwise>
-					<p>소개글: ${userInfo.introduce }</p>
+					<p class='isProfile'>소개글: ${userInfo.introduce }</p>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -74,7 +74,7 @@
 				<c:forEach var="myQ" items="${myQuestions }">
 					<tr align="center">
 						<td>${myQ.id }</td>
-						<td><a href="/test/question/read.do?qid=${myQ.id}">${myQ.title}</a></td>
+						<td><a href="/test/question/read.do?qid=${myQ.id}">Q.${myQ.title}</a></td>
 						<td>${myQ.category }</td>
 						<td>${myQ.view }</td>
 						<td>${myQ.created }</td>
@@ -105,7 +105,7 @@
 				<c:forEach var="answeringQ" items="${answeringQuestions }">
 					<tr align="center">
 						<td>${answeringQ.id }</td>
-						<td><a href="/test/question/read.do?qid=${answeringQ.id }">${answeringQ.title }</a></td>
+						<td><a href="/test/question/read.do?qid=${answeringQ.id }">Q.${answeringQ.title }</a></td>
 						<td>${answeringQ.category }</td>
 						<td>${answeringQ.view }</td>
 						<td>${answeringQ.created }</td>
@@ -135,7 +135,7 @@
 				<c:forEach var="selectedQ" items="${selectedQuestions }">
 						<tr align="center">
 							<td>${selectedQ.id }</td>
-							<td>Q.<a href="/test/question/read.do?qid=${selectedQ.id }">${selectedQ.title }</a></td>
+							<td><a href="/test/question/read.do?qid=${selectedQ.id }">Q.${selectedQ.title }</a></td>
 							<td>${selectedQ.category }</td>
 							<td>${selectedQ.view }</td>
 							<td>${selectedQ.created }</td>
@@ -166,7 +166,7 @@
 					<c:forEach var="responseQ" items="${responseQuestions }">
 						<tr align="center">
 							<td>${responseQ.id }</td>
-							<td>Q.<a href="/test/question/read.do?qid=${responseQ.id }">${responseQ.title }</a></td>
+							<td><a href="/test/question/read.do?qid=${responseQ.id }">Q.${responseQ.title }</a></td>
 							<td>${responseQ.category }</td>
 							<td>${responseQ.view }</td>
 							<td>${responseQ.created }</td>

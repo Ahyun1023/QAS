@@ -1,13 +1,108 @@
-#Qtitle, #Qcontent{
-	text-overflow:ellipsis;
+.mainH1{
+	margin-left: 13%;
+	color: #1ECFDB;
+}
+
+.noneContent{
+	font-weight: bolder;
+	font-size: large;
+	text-align: center;	
+}
+
+.noneContent a{
+	color: #7AB0FF;
+	text-decoration: none;
+}
+
+.bestAnswerInfo{
+	margin-left: 15%;
+}
+
+.bestAnswerPoint{
+	color: red;
+}
+
+.contentDiv{
+	width: 300px;
+	height: 200px;
+	margin-left: 13%;
+	float: left;
+	border-radius: 5px;
+	background: linear-gradient(to top, white, #14528C);
+	cursor: pointer;
+}
+
+#loginButton2{
+	margin-left: 48.5%;
+}
+
+.Questioner{
+	text-align: center;
+	font-size: small;
+	font-weight: bold;
+}
+
+.Qtitle, .Qcontent{
+	text-overflow: ellipsis;
 	overflow:hidden;
 	white-space:nowrap;
 }
 
-#Qtitle{
+.Questioner a{
+	text-decoration: none;
+	color: white;
+}
+
+.Qtitle{
+	margin-left: 14.5%;
+	text-align: center;
 	width:200px;
 }
 
-#Qcontent{
-	width:150px;
+.Qtitle a{
+	text-decoration: none;
+	font-size: 300;
+	font-weight: bolder;
+	color: #FFEBB5;
+}
+
+.Questioner a:hover ,.noneContent a:hover, .Qtitle a:hover{
+	text-decoration: underline;
+}
+
+.Qcontent{
+	text-align: center;
+	width:299px;
+	height: 110px;
+}
+
+.clear{
+	clear: left;
+}
+
+.mainHr{
+	border: 2px dashed #5B9EFF;
+}
+
+.userInfoDiv{
+	width: 300px;
+	height: 200px;
+	margin-left: 13%;
+	float: left;
+	border-radius: 5px;
+	background: linear-gradient(to top, white, #FFCB29);
+	cursor: pointer;
+	color: #207ED6;
+	font-weight: bold;
+}
+
+.AnswererId, .AnswererInterest, .AnswererGrade, .AnswererIntroduce{
+	text-align: center;
+}
+
+.AnswererId a{
+	color: #125797;
+	font-size: larger;
+	font-weight: bolder;
+	text-decoration: none;
 }

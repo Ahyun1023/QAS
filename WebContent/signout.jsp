@@ -23,8 +23,7 @@
 			<p>3. 탈퇴 후 작성했던 질문과 답변은 삭제되지 않습니다.</p>
 			<span>탈퇴한 사용자의 정보는 제공되지 않습니다.</span>
 		</div>
-		<label id="termsCheckLabel"><input type="checkbox"
-			id="termsCheck"><span class='required'>*</span>안내 사항을 모두 확인하였으며, 이에 동의합니다.</label>
+		<label id="termsCheckLabel"><input type="checkbox" id="termsCheck"><span class='required'>*</span>안내 사항을 모두 확인하였으며, 이에 동의합니다.</label>
 
 		<form name="SignoutForm" class='signoutForm'>
 			<p class='signoutTitle'><span class='required'>*</span>아이디</p>

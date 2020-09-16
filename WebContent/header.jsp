@@ -53,7 +53,7 @@
 					<option value="쇼핑">쇼핑</option>
 					<option value="생활">생활</option>
 				</select>
-			<input type="text" placeholder="검색" id="word" name="word"/>
+			<input type="text" placeholder="검색" id="word" name="word" required/>
 			<input type="submit" value="검색하기" class="searchButton"/>
 		</form>
 		<br><br><br><br>

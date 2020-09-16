@@ -2,7 +2,7 @@
 	font-size: 200%;
 	font-weight:900;
 	color: #1ECFDB;
-	margin-left: 15%;
+	margin-left: 12%;
 }
 
 table{
@@ -21,6 +21,11 @@ td, th{
 	text-decoration: none;
 	color: black;
 	cursor: pointer;
+	text-overflow: ellipsis;
+	display: inline-block;
+	width: 450px;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 .tables a:hover{
@@ -30,4 +35,9 @@ td, th{
 .listCount{
 	color: #B2B2B2;
 	margin-left: 1%;
+}
+
+.warning{
+	font-weight: bold;
+	margin-left: 45%;
 }

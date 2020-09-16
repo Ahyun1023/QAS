@@ -49,7 +49,7 @@
 					<c:forEach var="infoList" items="${infoList }">
 						<tr align="center">
 							<td>${infoList.id }</td>
-							<td><a href="/test/question/read.do?qid=${infoList.id }">${infoList.title }</a></td>
+							<td><span class='Qtitle'><a href="/test/question/read.do?qid=${infoList.id }">${infoList.title }</a></span></td>
 							<td>${infoList.category }</td>
 							<td>${infoList.userId }</td>
 							<td>${infoList.view }</td>
