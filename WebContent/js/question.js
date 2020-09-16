@@ -1,10 +1,28 @@
 window.onload = ()=>{
 	headerButton();
 	let questionId = $('#questionId').val();
+	
 	if(questionId == undefined){
 		location.href = "/test/noneQuestion.jsp";
 		}
-	}
+		
+	$('#answerTitle').keyup(()=>{
+		titleCount();
+	})
+	$('#answerContent').keyup(()=>{
+		contentCount();
+	})
+}
+
+function titleCount(){
+	let title = $('#answerTitle').val();
+	$('#title_count').text(title.length);
+}
+
+function contentCount(){
+	let content = $('#answerContent').val();
+	$('#content_count').text(content.length);
+}
 
 function writeAns(){
 	let isLogin = $('#isLogin').val();
@@ -81,13 +99,14 @@ function modifiedAnswer(Aid){
 	
 	document.getElementById("AmodifiedButton").setAttribute("onClick", "updateAnswer(" + Aid + ")");
 
-	AtitleHtml.innerHTML = "<input type='text' id='update_Title' value='" + Atitle +"'>";
-	AcontentHtml.innerHTML = "<textarea id='update_Content' cols='30' rows='10'>" + Acontent + "</textarea>";
+	$('.Acontent').css('border', 'none');
+	AtitleHtml.innerHTML = "<input type='text' id='Aupdate_Title' value='" + Atitle +"' maxlength='50'>";
+	AcontentHtml.innerHTML = "<textarea id='Aupdate_Content' cols='30' rows='10' maxlength='1500'>" + Acontent + "</textarea>";
 }
 
 function updateAnswer(Aid){
-	let updateTitle = $('#update_Title').val();
-	let updateContent = $('#update_Content').val();
+	let updateTitle = $('#Aupdate_Title').val();
+	let updateContent = $('#Aupdate_Content').val();
 	
 	$(document).ready(()=>{
 		$.ajax({
@@ -139,9 +158,9 @@ function modifiedQuestion(Qid){
 		let Qcontent = $('#Qcontent' + Qid).text();
 	
 		document.getElementById("QmodifiedButton").setAttribute("onClick", "updateQuestion()");
-	
-		QtitleHtml.innerHTML = "<input type='text' id='update_Title' value='" + Qtitle +"'>";
-		QcontentHtml.innerHTML = "<textarea id='update_Content' cols='30' rows='10'>" + Qcontent + "</textarea>";
+
+		QtitleHtml.innerHTML = "<input type='text' id='Qupdate_Title' value='" + Qtitle +"' maxlength='80'>";
+		QcontentHtml.innerHTML = "<textarea id='Qupdate_Content' cols='30' rows='10' maxlength='2000'>" + Qcontent + "</textarea>";
 	} else{
 		alert('이미 답변이 작성된 질문은 수정할 수 없습니다.');
 	}
@@ -149,8 +168,8 @@ function modifiedQuestion(Qid){
 }
 
 function updateQuestion(){
-	let updateTitle = $('#update_Title').val();
-	let updateContent = $('#update_Content').val();
+	let updateTitle = $('#Qupdate_Title').val();
+	let updateContent = $('#Qupdate_Content').val();
 	let updateQuestionId = $('#questionId').val();
 	
 	$(document).ready(()=>{
