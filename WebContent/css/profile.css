@@ -7,6 +7,10 @@
 	margin-left: 24%;
 }
 
+.isProfile{
+	color: #22DA5C;
+}
+
 .noneProfile{
 	color: #FF6541;
 }
@@ -52,6 +56,11 @@ td a{
 	text-decoration: none;
 	color: black;
 	cursor: pointer;
+	text-overflow: ellipsis;
+	display: inline-block;
+	width: 450px;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 td a:hover{
@@ -83,6 +92,7 @@ td a:hover{
 	border: none;
 	font-weight: bolder;
 	color: white;
+	cursor: pointer;
 }
 
 .requestQuestion:hover{
