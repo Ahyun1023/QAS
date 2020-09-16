@@ -70,11 +70,32 @@ public class SearchController extends HttpServlet {
 			mainQuestion(request, response);
 		} else if(action.equals("/find.do")) {
 			findQuestion(request, response);
+		} else if(action.equals("/category.do")) {
+			categoryQuestion(request, response);
 		}
 		if(nextPage != null) {
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 			dispatch.forward(request, response);
 		}
+	}
+
+	private void categoryQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String category = request.getParameter("value");
+		
+		SearchVO vo = new SearchVO();
+		vo.setCategory(category);
+		
+		List<SearchVO> searchList = searchDAO.findCategory(vo);
+		
+		request.setAttribute("category", category);
+		
+		if(searchList.size() != 0) {
+			request.setAttribute("searchList", searchList);
+		}else {
+			request.setAttribute("searchList", null);
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/category.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	private void findQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -89,14 +110,11 @@ public class SearchController extends HttpServlet {
 		
 		if(searchList.size() != 0) {
 			request.setAttribute("searchList", searchList);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/search.jsp");
-			dispatcher.forward(request, response);
 		}else {
 			request.setAttribute("searchList", null);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/search.jsp");
-			dispatcher.forward(request, response);
 		}
-		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/search.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	private void mainQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

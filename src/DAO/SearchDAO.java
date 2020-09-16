@@ -28,6 +28,36 @@ public class SearchDAO {
 		}
 	}
 	
+	public List<SearchVO> findCategory(SearchVO vo){
+		List<SearchVO> categoryList = new ArrayList<SearchVO>();
+		String categoryValue = vo.getCategory();
+		
+		
+		String query = "SELECT * FROM question WHERE category=?";
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, categoryValue);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String userId = rs.getString("userId");
+				String category = rs.getString("category");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				int view = rs.getInt("view");
+				Date created = rs.getDate("created");
+				
+				SearchVO searchVO = new SearchVO(id, userId, category, title, content, view, created);
+				categoryList.add(searchVO);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return categoryList;
+	}
+	
 	public List<SearchVO> findInfoList(SearchVO vo, String action){
 		List<SearchVO> infoList = new ArrayList<SearchVO>();
 		String SearchUserId = vo.getUserId();

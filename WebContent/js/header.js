@@ -16,6 +16,10 @@ function locQuestion(){
 	}
 }
 
+function locCategory(){
+	location.href = "/test/search/category.do?value=교육";
+}
+
 function locMyProfile(){
 	let userId = $('#userId').val();
 	if($('#isLogin').val() != "true"){
