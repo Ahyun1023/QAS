@@ -16,12 +16,12 @@
 		<span class='Qtitle'>Q.&nbsp;</span><input type='text' name='title' id="title" class='title' maxlength="80" />
 		<select name='category' id='category' class='category'>
 			<option value=''>--선택--</option>
-			<option value='edu'>교육</option>
-			<option value='game'>게임</option>
-			<option value='health'>건강</option>
-			<option value='trip'>여행</option>
-			<option value='shopping'>쇼핑</option>
-			<option value='life'>생활</option>
+			<option value='교육'>교육</option>
+			<option value='게임'>게임</option>
+			<option value='건강'>건강</option>
+			<option value='여행'>여행</option>
+			<option value='쇼핑'>쇼핑</option>
+			<option value='생활'>생활</option>
 		</select>
 		<p class='counting'><span id='title_count'>0</span>/80</p>
 		<textarea name='content' id='content' class='content' cols='30' rows='10' maxlength='2000'></textarea>

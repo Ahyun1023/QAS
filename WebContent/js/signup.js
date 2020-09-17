@@ -72,8 +72,8 @@ function idExistCheck(){
 				data:{
 					checkId: $('#id').val()
 				},
-				success:(result)=>{
-					if(result.isTrue == true){
+				success:(isTrue)=>{
+					if(isTrue.isTrue == true){
 						isIdExist = true;
 						$('#isIdExist').css('color', 'red');
 						$('#isIdExist').text('중복된 아이디입니다. 다른 아이디를 사용해주세요.');

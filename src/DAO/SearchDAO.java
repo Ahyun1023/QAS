@@ -68,7 +68,7 @@ public class SearchDAO {
 		} else if(action.equals("/answerList.do")) {
 			query = "SELECT * FROM question WHERE id IN (SELECT qId FROM answer WHERE userId = ?)";
 		} else if(action.equals("/selectedList.do")) {
-			query = "SELECT * FROM question WHERE id IN (SELECT qId FROM answer WHERE userId = ?) AND select_userId = ?";
+			query = "SELECT * FROM question WHERE select_userId = ?";
 		}else if(action.equals("/responseList.do")) {
 			query = "SELECT * FROM question WHERE request_user=?";
 		}
@@ -77,9 +77,6 @@ public class SearchDAO {
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, SearchUserId);
-			if(action.equals("/selectedList.do")) {
-				pstmt.setString(2, SearchUserId);
-			}
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

@@ -250,10 +250,13 @@ public class UserDAO {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
-			query = "UPDATE answer, question SET answer.userId = \"(삭제된 이용자)\", question.userId=\"(삭제된 이용자)\" WHERE answer.userId = ? AND question.userId = ?";
+			query = "UPDATE question SET userId=\"(삭제된 이용자)\" WHERE userId = ?";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, id);
-			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+			query = "UPDATE answer SET userId=\"(삭제된 이용자)\" WHERE userId = ?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
 			pstmt.executeUpdate();
 			query = "UPDATE question SET select_userId=\"(삭제된 이용자)\" WHERE select_userId = ?";
 			pstmt = con.prepareStatement(query);
